@@ -5,6 +5,7 @@ public class PlayerTank extends Tank{
 	public PlayerTank(int x, int y, int orient, int speed) {
 		super(x, y, orient, speed);
 		setHealth(commons.HEALTH_PLAYER_TANK);
+		setImage();
 	}
 
 	@Override

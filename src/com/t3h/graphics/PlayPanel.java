@@ -13,13 +13,14 @@ import javax.swing.JPanel;
 
 import com.t3h.bullet.Bullet;
 import com.t3h.bullet.BulletManager;
+import com.t3h.tank.PlayerTank;
 
 public class PlayPanel extends JPanel implements Runnable{
 	private Bullet b;
 	private Graphics2D g2d;
 	private BulletManager bulletMgr;
 	
-	private int count;
+	private PlayerTank playerTank;
 	
 	private Thread th;
 	
@@ -30,6 +31,9 @@ public class PlayPanel extends JPanel implements Runnable{
 		
 		b = new Bullet(10, 10, 1, 1, 1, 2);
 		bulletMgr = new BulletManager();
+		
+		playerTank = new PlayerTank(0, 0, 4, 1);
+		addKeyListener(moveAdapter);
 		th = new Thread(this);
 		th.start();
 		setFocusable(true);
@@ -39,11 +43,55 @@ public class PlayPanel extends JPanel implements Runnable{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
+		bulletMgr.drawAllBullet(g2d);
+		playerTank.drawTank(g2d);
 	}
+	
+	private KeyAdapter moveAdapter = new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+//			JOptionPane.showMessageDialog(null, "ok");
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+				playerTank.move(4);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT){
+				playerTank.move(3);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_UP){
+				playerTank.move(1);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN){
+				playerTank.move(2);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_SPACE){
+				bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 1, playerTank.getOrient()));
+			}
+			repaint();
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+				playerTank.move(4);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT){
+				playerTank.move(3);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_UP){
+				playerTank.move(1);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN){
+				playerTank.move(2);
+			}
+			repaint();
+		}
+	};
 	
 	@Override
 	public void run() {
-		while (b.getX() < Commons.WIDTH_PANEL){
+//		JOptionPane.showMessageDialog(null, "ok2");
+		while (true){
+			//playerTank.move(4);
 			bulletMgr.moveAllBullet();
 			repaint();
 			try {

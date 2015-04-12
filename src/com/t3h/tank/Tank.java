@@ -4,12 +4,13 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import com.t3h.boom.BoomManager;
 import com.t3h.bullet.BulletManager;
 
 public abstract class Tank {
-	private int x, y;
+	protected int x, y;
 	protected Commons commons;
 	private int orient;
 	private int speed;
@@ -54,24 +55,25 @@ public abstract class Tank {
 		}
 	}
 	
-	public void move(int orient){
-		switch (orient) {
+	public void move(int new_orient){
+//		JOptionPane.showMessageDialog(null, "ok");
+		switch (new_orient) {
 		case 1:
-			this.y--;
+			this.y-=2;
 			break;
 		case 2:
-			this.y++;
+			this.y+=2;
 			break;
 		case 3:
-			this.x--;
+			this.x-=2;
 			break;
 		case 4:
-			this.x++;
+			this.x+=2;
 			break;
 		default:
 			break;
 		}
-		
+		this.orient = new_orient;
 	}
 	
 	protected Image getImage(String path){
@@ -84,5 +86,24 @@ public abstract class Tank {
 	
 	public void setHealth(int health) {
 		this.health = health;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getSpeed() {
+		return speed;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	public int getOrient() {
+		return orient;
 	}
 }
