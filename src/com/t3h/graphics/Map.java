@@ -25,7 +25,10 @@ public class Map {
 		matrix = new int [Commons.sizeMap][Commons.sizeMap];
 		
 //		String pathMap =  "/RESOURCE/Map/map" + type;
-		String pathMap = "C://Users/TMQ/Documents/TANK_BATTLE/src/RESOURCE/Map/map" + type;
+		String tempFilePath = getClass().getResource("/RESOURCE/Map").toString();
+//		System.out.println(tempFilePath);
+//		String pathMap = "C://Users/TMQ/Documents/TANK_BATTLE/src/RESOURCE/Map/map" + type;
+		String pathMap = tempFilePath.substring(6) + "/map" + type;
 		file = new File(pathMap);
 //		if (file.exists()) JOptionPane.showMessageDialog(null, "File ton tai");
 //		else JOptionPane.showMessageDialog(null, "file k ton tai");

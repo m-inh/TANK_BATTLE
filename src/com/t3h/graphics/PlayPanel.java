@@ -30,7 +30,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		setBounds(0, 0, Commons.WIDTH_PANEL, Commons.HEIGHT_PANEL);
 		setLayout(null);
 		setBackground(Color.BLACK);
-		map = new Map(1);
+		map = new Map(2);
 		
 		
 		b = new Bullet(10, 10, 1, 1, 1, 2);
@@ -47,12 +47,13 @@ public class PlayPanel extends JPanel implements Runnable{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
-
-		//bulletMgr.drawAllBullet(g2d);
-		//playerTank.drawTank(g2d);
-
 		
 		map.drawMap(g2d);
+		bulletMgr.drawAllBullet(g2d);
+		playerTank.drawTank(g2d);
+
+		
+		
 
 	}
 	

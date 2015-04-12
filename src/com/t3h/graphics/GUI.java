@@ -17,6 +17,7 @@ public class GUI extends JFrame{
 //		setBounds((int)(width_screen - Commons.WIDTH_FRAME) / 2, (int)(height_screen - Commons.HEIGHT_FRAME) / 2, Commons.WIDTH_FRAME, Commons.HEIGHT_FRAME);
 		setBounds((int)(width_screen - Commons.WIDTH_FRAME) / 2, 0, Commons.WIDTH_FRAME, Commons.HEIGHT_FRAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setLayout(new CardLayout());
 		playPanel = new PlayPanel();
 		menuPanel = new MenuPanel();
