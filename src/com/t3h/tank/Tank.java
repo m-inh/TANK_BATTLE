@@ -51,29 +51,56 @@ public abstract class Tank {
 			g2d.drawImage(rightImg, x, y, null);
 			break;
 		default:
+			JOptionPane.showMessageDialog(null, "Orient not found!");
 			break;
 		}
 	}
 	
 	public void move(int new_orient){
 //		JOptionPane.showMessageDialog(null, "ok");
+		if (checkMove(new_orient)){
+			switch (new_orient) {
+			case 1:
+				this.y-=2;
+				break;
+			case 2:
+				this.y+=2;
+				break;
+			case 3:
+				this.x-=2;
+				break;
+			case 4:
+				this.x+=2;
+				break;
+			default:
+				break;
+			}
+		}
+		this.orient = new_orient;
+	}
+	
+	private boolean checkMove(int new_orient){
 		switch (new_orient) {
 		case 1:
-			this.y-=2;
+			if (y - 2 < 0)
+				return false;
 			break;
 		case 2:
-			this.y+=2;
+			if (y + 2 > 700 - 32)
+				return false;
 			break;
 		case 3:
-			this.x-=2;
+			if (x - 2 < 0)
+				return false;
 			break;
 		case 4:
-			this.x+=2;
+			if (x + 2 > 700 - 32)
+				return false;
 			break;
 		default:
 			break;
 		}
-		this.orient = new_orient;
+		return true;
 	}
 	
 	protected Image getImage(String path){
@@ -86,6 +113,10 @@ public abstract class Tank {
 	
 	public void setHealth(int health) {
 		this.health = health;
+	}
+	
+	public void setOrient(int orient) {
+		this.orient = orient;
 	}
 	
 	public int getX() {

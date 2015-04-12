@@ -15,6 +15,11 @@ public class Commons {
 	public static Image LEFT_PLAYER_TANK;
 	public static Image RIGHT_PLAYER_TANK;
 	
+	public static Image UP_ENEMY_TANK;
+	public static Image DOWN_ENEMY_TANK;
+	public static Image LEFT_ENEMY_TANK;
+	public static Image RIGHT_ENEMY_TANK;
+	
 	public static final int HEALTH_TANK = 25; // 	default health for each tank
 	public static final int HEALTH_ENEMY_TANK = 25;
 	public static final int HEALTH_PLAYER_TANK = 150;
@@ -24,6 +29,11 @@ public class Commons {
 		DOWN_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_2.png");
 		LEFT_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_3.png");
 		RIGHT_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_4.png");
+		
+		UP_ENEMY_TANK = getImage("/RESOURCE/Image/bossyellow_1.png");
+		DOWN_ENEMY_TANK = getImage("/RESOURCE/Image/bossyellow_2.png");
+		LEFT_ENEMY_TANK = getImage("/RESOURCE/Image/bossyellow_3.png");
+		RIGHT_ENEMY_TANK = getImage("/RESOURCE/Image/bossyellow_4.png");
 	}
 	
 	private Image getImage(String path){
