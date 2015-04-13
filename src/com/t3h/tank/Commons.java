@@ -24,6 +24,9 @@ public class Commons {
 	public static final int HEALTH_ENEMY_TANK = 25;
 	public static final int HEALTH_PLAYER_TANK = 150;
 	
+	public static final int BULLET_TYPE_PLAYER = 1;
+	public static final int BULLET_TYPE_ENEMY = 2;
+	
 	public Commons() {
 		UP_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_1.png");
 		DOWN_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_2.png");

@@ -10,7 +10,7 @@ import java.io.RandomAccessFile;
 import javax.swing.JOptionPane;
 
 public class Map {
-	private int type;
+	private int type; // 0 1 2 3 4 
 	private Image bground;
 	
 	private File file;
@@ -21,9 +21,9 @@ public class Map {
 	Commons common = new Commons();
 	public Map(int type) {
 		this.type = type;
-		bground = common.getImage("/RESOURCE/Image/bg_contai_panel.png");
-		matrix = new int [Commons.sizeMap][Commons.sizeMap];
 		
+		bground = common.getImage("/RESOURCE/Image/bg_contai_panel.png");
+		createMatrix();
 //		String pathMap =  "/RESOURCE/Map/map" + type;
 		String tempFilePath = getClass().getResource("/RESOURCE/Map").toString();
 //		System.out.println(tempFilePath);
@@ -42,29 +42,28 @@ public class Map {
 		drawComponent(g2d);
 	}
 	private void drawComponent(Graphics2D g2d){
-		int type, x, y;
-		for (int i=0; i<Commons.sizeMap; i++){
-			for (int j=0; j<Commons.sizeMap; j++){
+		int type;
+		for (int i=1; i<Commons.sizeMap-1; i++){
+			for (int j=1; j<Commons.sizeMap-1; j++){
 				type = matrix[i][j];
-				x = i+1;	y = j+1;
 				switch(type){
 					case 0:{
 						break;
 					}
 					case 1:{
-						g2d.drawImage(Commons.brick1, x*Commons.SIZE_COMPONENT, y*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						g2d.drawImage(Commons.brick1, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
 					case 2:{
-						g2d.drawImage(Commons.stone, x*Commons.SIZE_COMPONENT, y*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						g2d.drawImage(Commons.stone, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
 					case 3:{
-						g2d.drawImage(Commons.brick2, x*Commons.SIZE_COMPONENT, y*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						g2d.drawImage(Commons.brick2, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
 					default:{	// chỉ Demo, sau này phải xóa cái ảnh này	
-						g2d.drawImage(Commons.componentDefault, x*Commons.SIZE_COMPONENT, y*Commons.SIZE_COMPONENT, null);
+						g2d.drawImage(Commons.componentDefault, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, null);
 						break;
 					}
 				}
@@ -119,9 +118,47 @@ public class Map {
 			i = Integer.parseInt(line.substring(0, pos));
 			j = Integer.parseInt(line.substring(pos+1, line.length()));
 			type = Integer.parseInt(readLine());
-			matrix[i][j] = type;
+			matrix[i+1][j+1] = type;
 		}
 	}
 	
+	private void createMatrix(){
+		matrix = new int [Commons.sizeMap][Commons.sizeMap];
+//		for (int i = 0; i < matrix.length; i++) {
+//			for (int j = 0; j < matrix[0].length; j++) {
+//				matrix[i][j] = 0;
+//			}
+//		}
+		for (int i = 0; i < common.sizeMap; i++) {
+			matrix[0][i] = 2;
+			matrix[i][0] = 2;
+			matrix[Commons.sizeMap - 1][i] = 2;
+			matrix[i][Commons.sizeMap - 1] = 2;
+		}
+	}
 	
+	public void setMatrix(int x, int y, int type) {
+		matrix[x/common.SIZE_COMPONENT][y/common.SIZE_COMPONENT] = type;
+	}
+	
+	public int getType(int xScreen, int yScreen){
+		return matrix[xScreen/common.SIZE_COMPONENT][yScreen/common.SIZE_COMPONENT];
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

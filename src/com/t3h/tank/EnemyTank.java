@@ -4,6 +4,9 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+import com.t3h.bullet.Bullet;
+import com.t3h.bullet.BulletManager;
+
 public class EnemyTank extends Tank{
 	private Random random;
 
@@ -23,13 +26,13 @@ public class EnemyTank extends Tank{
 		rightImg = commons.RIGHT_ENEMY_TANK;
 	}
 	
-	public void auto(int count){
+	public void auto(int count, BulletManager bulletMgr){
 		autoMove(count);
-//		autoFire();
+		autoFire(bulletMgr);
 	}
 	
 	private void autoMove(int count){
-		if (count % 100 == 0){
+		if (count % 50 == 0){
 			int randomInt = random.nextInt();
 			if (randomInt < 0){
 				randomInt = randomInt*-1;
@@ -57,9 +60,10 @@ public class EnemyTank extends Tank{
 //		move(random.nextInt() % 4 + 1);
 	}
 	
-	private void autoFire(){
-		if (random.nextInt(100) > 80){
-			System.out.println("EnemyTank is Shotting");
+	private void autoFire(BulletManager bulletMgr){
+		if (random.nextInt(100) > 98){
+			Bullet bullet = new Bullet(this.x+16, this.y+16, 2, 1, 1, getOrient());
+			bulletMgr.addBullet(bullet);
 		}
 	}
 	

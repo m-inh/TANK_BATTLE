@@ -10,13 +10,15 @@ public class Commons {
 	public static final int WIDTH_PANEL = 1000;
 	public static final int HEIGHT_PANEL = 740;
 	public static final int SIZE_COMPONENT = 25;
+	
+	// kich thuoc cua matrix[][]
 	public static final int sizeMap = 28;
 	
 	
-	public static Image brick1;	// Gạch
-	public static Image brick2;	// Gạch bị bắn
-	public static Image stone;	// Đá
-	public static Image componentDefault;	// Dùng để vẽ tphan mặc định, sau này phải xóa đi
+	public static Image brick1;	// Gáº¡ch
+	public static Image brick2;	// Gáº¡ch bá»‹ báº¯n
+	public static Image stone;	// Ä�Ã¡
+	public static Image componentDefault;	// DÃ¹ng Ä‘á»ƒ váº½ tphan máº·c Ä‘á»‹nh, sau nÃ y pháº£i xÃ³a Ä‘i
 	
 	public Commons() {
 		brick1 = getImage("/RESOURCE/Image/brick1.png");

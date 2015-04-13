@@ -42,8 +42,10 @@ public class PlayPanel extends JPanel implements Runnable{
 		b = new Bullet(10, 10, 1, 1, 1, 2);
 		bulletMgr = new BulletManager();
 		
-		playerTank = new PlayerTank(0, 0, 4, 1);
+		playerTank = new PlayerTank(30, 30, 4, 1);
+		playerTank.setMap(map);
 		enemyTankMgr = new EnemyTankManager();
+		enemyTankMgr.setMap(map);
 		
 		addKeyListener(moveAdapter);
 		addMouseListener(click);
@@ -120,11 +122,11 @@ public class PlayPanel extends JPanel implements Runnable{
 			//playerTank.move(4);
 			
 			bulletMgr.moveAllBullet();
-			if (enemyTankMgr.getSize() < 4){
-				EnemyTank enemyTank = new EnemyTank(0, 0, 1, 1);
+			if (enemyTankMgr.getSize() < 1000){
+				EnemyTank enemyTank = new EnemyTank(30, 30, 1, 1);
 				enemyTankMgr.addEnemyTank(enemyTank);
 			}
-			enemyTankMgr.AutoControlAllTank(count);
+			enemyTankMgr.AutoControlAllTank(count, bulletMgr);
 			enemyTankMgr.checkAllEnemyTank(bulletMgr);
 			repaint();
 			count++;

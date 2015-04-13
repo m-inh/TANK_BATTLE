@@ -85,6 +85,10 @@ public class Bullet {
 		return y;
 	}
 	
+	public int getType() {
+		return type;
+	}
+	
 	public int getStrong() {
 		return strong;
 	}

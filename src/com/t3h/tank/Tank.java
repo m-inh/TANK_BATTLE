@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.t3h.boom.BoomManager;
 import com.t3h.bullet.BulletManager;
+import com.t3h.graphics.Map;
 
 public abstract class Tank {
 	protected int x, y;
@@ -21,9 +22,9 @@ public abstract class Tank {
 	protected Image UpImg;
 	protected Image downImg;
 	
-	
 	protected BulletManager bulletMgr;
 	protected BoomManager boomMgr;
+	protected Map map;
 	
 	public Tank(int x, int y, int orient, int speed) {
 		commons = new Commons();
@@ -32,6 +33,10 @@ public abstract class Tank {
 		this.speed = speed;
 		this.orient = orient;
 		this.health = 25;
+	}
+	
+	public void setMap(Map map){
+		this.map = map;
 	}
 	
 	abstract public void setImage();
@@ -80,27 +85,59 @@ public abstract class Tank {
 	}
 	
 	private boolean checkMove(int new_orient){
+		int type1 = 0;
+		int type2 = 0;
 		switch (new_orient) {
 		case 1:
-			if (y - 2 < 0)
-				return false;
+//			type1 = map.getType(x, y-2);
+//			type2 = map.getType(x+32, y-2);
+			for (int i = 0; i < 32; i++) {
+				type2 = map.getType(x+i, y-2);	
+				if (type2 != 0){
+					return false;
+				}
+			}
 			break;
 		case 2:
-			if (y + 2 > 700 - 32)
-				return false;
+//			type1 = map.getType(x, y + 2 + 32);
+//			type2 = map.getType(x + 32, y + 2 + 32);
+			for (int i = 0; i < 32; i++) {
+				type2 = map.getType(x + i, y + 2 + 32);
+				if (type2 != 0){
+					return false;
+				}
+			}
 			break;
 		case 3:
-			if (x - 2 < 0)
-				return false;
+//			type1 = map.getType(x - 2, y);
+//			type2 = map.getType(x - 2, y + 32);
+			for (int i = 0; i < 32; i++) {
+				type2 = map.getType(x - 2, y + i);
+				if (type2 != 0){
+					return false;
+				}
+			}
 			break;
 		case 4:
-			if (x + 2 > 700 - 32)
-				return false;
+//			type1 = map.getType(x + 2 + 32, y);
+//			type2 = map.getType(x + 2 + 32, y + 32);
+			for (int i = 0; i < 32; i++) {
+				type2 = map.getType(x + 2 + 32, y + i);
+				if (type2 != 0){
+					return false;
+				}
+			}
 			break;
 		default:
 			break;
 		}
-		return true;
+//		if (type1 == 0 && type2 == 0){
+		if (type2 == 0){
+//			System.out.println(x + " " + y);
+			return true;
+		}
+			
+		return false;
 	}
 	
 	protected Image getImage(String path){
