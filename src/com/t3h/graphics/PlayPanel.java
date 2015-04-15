@@ -65,7 +65,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		g2d = (Graphics2D)g;
 		
 		map.drawMap(g2d);
-//		bulletMgr.drawAllBullet(g2d);
+		bulletMgr.drawAllBullet(g2d);
 		playerTank.drawTank(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
 		boomMgr.exploredAllBoom(count, g2d);

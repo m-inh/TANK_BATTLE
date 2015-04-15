@@ -22,7 +22,7 @@ public class Boom {
 	}
 	
 	public void explored(int count, Graphics2D g2d){
-		if (type == Commons_Boom.EXPLOSION_TANK_TYPE){
+		if (type == Commons_Boom.EXPLOSION_TANK_TYPE){        
 			switch (count % 5) {
 			case 0:
 				g2d.drawImage(common_boom.TANK_EXPLOSION_1, x - 10, y - 9, null);
@@ -43,24 +43,6 @@ public class Boom {
 			case 4:
 				g2d.drawImage(common_boom.TANK_EXPLOSION_5, x - 28, y - 25, null);
 				time+=3;
-			System.out.println(count % 5);
-			switch (count % 5) {
-			case 0:
-				g2d.drawImage(common_boom.TANK_EXPLOSION_1, x - 10, y - 9, null);
-				System.out.println("ok" + x + " " + y);
-				break;
-			case 1:
-				g2d.drawImage(common_boom.TANK_EXPLOSION_2, x - 13, y - 11, null);
-				break;
-			case 2:
-				g2d.drawImage(common_boom.TANK_EXPLOSION_3, x - 14, y - 13, null);
-				break;
-			case 3:
-				g2d.drawImage(common_boom.TANK_EXPLOSION_4, x - 28, y - 23, null);
-				break;
-			case 4:
-				g2d.drawImage(common_boom.TANK_EXPLOSION_5, x - 28, y - 25, null);
-				break;
 			default:
 				break;
 			}
@@ -85,15 +67,10 @@ public class Boom {
 				g2d.drawImage(common_boom.BULLET_EXPLOSION, x - 19/2, y - 19/2, 38/2, 38/2, null);
 				time+=5;
 				break;
-			case 3:
-				g2d.drawImage(common_boom.BULLET_EXPLOSION, x - 38/6, y - 38/6, 38/3, 38/3, null);
-				break;
-			case 4:
-				g2d.drawImage(common_boom.BULLET_EXPLOSION, x - 19/2, y - 19/2, 38/2, 38/2, null);
-				break;
 			default:
 				break;
 			}
 		}
 	}
 }
+
