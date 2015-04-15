@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import javax.swing.JOptionPane;
-import javax.swing.RepaintManager;
 
 public class Map {
 	private int type; // 0 1 2 3 4 

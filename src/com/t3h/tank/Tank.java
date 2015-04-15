@@ -30,6 +30,7 @@ public abstract class Tank {
 	private boolean allowMoveDown = true;
 	private boolean allowMoveLeft = true;
 	private boolean allowMoveRight = true;
+
 	
 	public Tank(int x, int y, int orient, int speed) {
 		commons = new Commons();

@@ -30,6 +30,7 @@ public class PlayPanel extends JPanel implements Runnable{
 	private BoomManager boomMgr;
 	private PlayerTank playerTank;
 	private EnemyTankManager enemyTankMgr;
+	private Boom boom;
 	private Thread th;
 	
 	public PlayPanel() {
@@ -37,7 +38,6 @@ public class PlayPanel extends JPanel implements Runnable{
 		setLayout(null);
 		setBackground(Color.BLACK);
 		setMap(1);
-		
 		boomMgr = new BoomManager();
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
@@ -65,7 +65,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		g2d = (Graphics2D)g;
 		
 		map.drawMap(g2d);
-		bulletMgr.drawAllBullet(g2d);
+//		bulletMgr.drawAllBullet(g2d);
 		playerTank.drawTank(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
 		boomMgr.exploredAllBoom(count, g2d);
@@ -122,6 +122,8 @@ public class PlayPanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 		while (true){
+			
+			
 			bulletMgr.moveAllBullet();
 			if (enemyTankMgr.getSize() < 10){
 				EnemyTank enemyTank = new EnemyTank(30, 30, 1, 1);
