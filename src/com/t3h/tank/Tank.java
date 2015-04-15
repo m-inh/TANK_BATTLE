@@ -26,6 +26,11 @@ public abstract class Tank {
 	protected BoomManager boomMgr;
 	protected Map map;
 	
+	protected boolean allowMoveUp = true;
+	protected boolean allowMoveDown = true;
+	protected boolean allowMoveLeft = true;
+	protected boolean allowMoveRight = true;
+	
 	public Tank(int x, int y, int orient, int speed) {
 		commons = new Commons();
 		this.x = x;
@@ -88,54 +93,87 @@ public abstract class Tank {
 		int type2 = 0;
 		switch (new_orient) {
 		case 1:
-//			type1 = map.getType(x, y-2);
-//			type2 = map.getType(x+32, y-2);
-			for (int i = 0; i < 32; i++) {
-				type2 = map.getType(x+i, y-2);	
-				if (type2 != 0){
-					return false;
-				}
+			if (!allowMoveUp) {//--------------------------------
+				return false;
 			}
+			type1 = map.getType(x, y-2);
+			type2 = map.getType(x+32, y-2);
+//			for (int i = 0; i < 32; i+=sizeComponent) {
+//				type2 = map.getType(x+i, y-2);	
+//				if (type2 != 0){
+//					return false;
+//				}
+//			}
 			break;
 		case 2:
-//			type1 = map.getType(x, y + 2 + 32);
-//			type2 = map.getType(x + 32, y + 2 + 32);
-			for (int i = 0; i < 32; i++) {
-				type2 = map.getType(x + i, y + 2 + 32);
-				if (type2 != 0){
-					return false;
-				}
+			if (!allowMoveDown) {//--------------------------------
+				return false;
 			}
+			type1 = map.getType(x, y + 2 + 32);
+			type2 = map.getType(x + 32, y + 2 + 32);
+//			for (int i = 0; i < 32; i++) {
+//				type2 = map.getType(x + i, y + 2 + 32);
+//				if (type2 != 0){
+//					return false;
+//				}
+//			}
 			break;
 		case 3:
-//			type1 = map.getType(x - 2, y);
-//			type2 = map.getType(x - 2, y + 32);
-			for (int i = 0; i < 32; i++) {
-				type2 = map.getType(x - 2, y + i);
-				if (type2 != 0){
-					return false;
-				}
+			if (!allowMoveLeft) {//--------------------------------
+				return false;
 			}
+			type1 = map.getType(x - 2, y);
+			type2 = map.getType(x - 2, y + 32);
+//			for (int i = 0; i < 32; i++) {
+//				type2 = map.getType(x - 2, y + i);
+//				if (type2 != 0){
+//					return false;
+//				}
+//			}
 			break;
 		case 4:
-//			type1 = map.getType(x + 2 + 32, y);
-//			type2 = map.getType(x + 2 + 32, y + 32);
-			for (int i = 0; i < 32; i++) {
-				type2 = map.getType(x + 2 + 32, y + i);
-				if (type2 != 0){
-					return false;
-				}
+			if (!allowMoveRight) {//--------------------------------
+				return false;
 			}
+			type1 = map.getType(x + 2 + 32, y);
+			type2 = map.getType(x + 2 + 32, y + 32);
+//			for (int i = 0; i < 32; i++) {
+//				type2 = map.getType(x + 2 + 32, y + i);
+//				if (type2 != 0){
+//					return false;
+//				}
+//			}
 			break;
 		default:
 			break;
 		}
-//		if (type1 == 0 && type2 == 0){
-		if (type2 == 0){
+		if (type1 == 0 && type2 == 0){
+//		if (type2 == 0){
+//			System.out.println(x + " " + y);
 			return true;
-		}
-			
+		}			
 		return false;
+	}
+	
+	public static final int space = 5;
+	public void checkUp(Tank tank){//----------------------------------------------
+		if (this.y-space<=tank.getY()+32 && (y+32>tank.getY() )&& this.y+space>=tank.getY()+32 &&  tank.getX()+space>=this.x-32 && tank.getX()-space<=this.x+32){
+			allowMoveUp = false;
+		}
+	}
+	public void checkDown(Tank tank){//----------------------------------------------
+		if (this.y+space+32>=tank.getY() &&(y<tank.getY()+32 )&& this.y-space+32<=tank.getY() &&  tank.getX()+space>=this.x-32 && tank.getX()-space<=this.x+32){
+			allowMoveDown = false;
+		}
+	}
+	public void checkLeft(Tank tank){//----------------------------------------------
+		if (this.x-space<=tank.getX()+32 && this.x+space>=tank.getX()+32 &&  tank.getY()+space>=this.y-32 && tank.getY()-space<=this.y+32) allowMoveLeft = false;
+	}
+	public void checkRight(Tank tank){//----------------------------------------------
+		if (this.x+space+32>=tank.getX() && this.x-space+32<=tank.getX() &&  tank.getY()+space>=this.y-32 && tank.getY()-space<=this.y+32) allowMoveRight = false;
+	}
+	public void resetImpact(){
+		allowMoveUp = allowMoveLeft = allowMoveDown = allowMoveRight = true;
 	}
 	
 	protected Image getImage(String path){

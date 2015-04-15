@@ -42,6 +42,7 @@ public class EnemyTankManager {
 		int tankY = 0;
 		int bulletType = 0;
 		for (int i = 0; i < bulletMgr.getSize(); i++) {
+			if (i>=bulletMgr.getSize()) continue;
 			bulletX = bulletMgr.getBullet(i).getX();
 			bulletY = bulletMgr.getBullet(i).getY();
 			for (int j = 0; j < enemyTankMgr.size(); j++) {
@@ -59,6 +60,31 @@ public class EnemyTankManager {
 			}
 			if (i < 0) {break;}
 		}
+	}
+	
+	public void checkImpact(Tank tank){
+		for (int i = 0; i < enemyTankMgr.size(); i++) {
+			enemyTankMgr.get(i).checkUp(tank);
+			enemyTankMgr.get(i).checkDown(tank);
+			enemyTankMgr.get(i).checkLeft(tank);
+			enemyTankMgr.get(i).checkRight(tank);
+			for (int j = 0; j < enemyTankMgr.size(); j++) {
+				if (i!=j){	
+					enemyTankMgr.get(i).checkUp(enemyTankMgr.get(j));
+					enemyTankMgr.get(i).checkDown(enemyTankMgr.get(j));
+					enemyTankMgr.get(i).checkLeft(enemyTankMgr.get(j));
+					enemyTankMgr.get(i).checkRight(enemyTankMgr.get(j));
+				}
+			}
+		}
+	}
+	public void resetImpact(){
+		for (int i = 0; i < enemyTankMgr.size(); i++) {
+			enemyTankMgr.get(i).resetImpact();
+		}
+	}
+	public EnemyTank getEnemyTank(int index){
+		return enemyTankMgr.get(index);
 	}
 	
 	public int getSize(){

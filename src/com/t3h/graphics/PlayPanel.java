@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.t3h.boom.Boom;
 import com.t3h.bullet.Bullet;
 import com.t3h.bullet.BulletManager;
 import com.t3h.tank.EnemyTank;
@@ -30,6 +31,8 @@ public class PlayPanel extends JPanel implements Runnable{
 	private PlayerTank playerTank;
 	private EnemyTankManager enemyTankMgr;
 	
+	private Boom boom;
+	
 	private Thread th;
 	
 	public PlayPanel() {
@@ -38,12 +41,13 @@ public class PlayPanel extends JPanel implements Runnable{
 		setBackground(Color.BLACK);
 		map = new Map(1);
 		
+		boom = new Boom(100, 100, 1);
 		
 		b = new Bullet(10, 10, 1, 1, 1, 2);
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
 		
-		playerTank = new PlayerTank(30, 30, 4, 1);
+		playerTank = new PlayerTank(350, 250, 4, 1);
 		playerTank.setMap(map);
 		enemyTankMgr = new EnemyTankManager();
 		enemyTankMgr.setMap(map);
@@ -65,7 +69,12 @@ public class PlayPanel extends JPanel implements Runnable{
 		playerTank.drawTank(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
 		
-		
+//		boom.explored(count, g2d);
+		if (playerTank.checkPlayerTank(bulletMgr)){
+			//System.out.println("da bi ban chet");
+			boom = new Boom(playerTank.getX() + 16, playerTank.getY() + 16, 2);
+			boom.explored(count, g2d);
+		}
 
 	}
 	
@@ -80,18 +89,18 @@ public class PlayPanel extends JPanel implements Runnable{
 		@Override
 		public void keyReleased(KeyEvent e) {
 //			JOptionPane.showMessageDialog(null, "ok");
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-				playerTank.move(4);
-			}
-			if (e.getKeyCode() == KeyEvent.VK_LEFT){
-				playerTank.move(3);
-			}
-			if (e.getKeyCode() == KeyEvent.VK_UP){
-				playerTank.move(1);
-			}
-			if (e.getKeyCode() == KeyEvent.VK_DOWN){
-				playerTank.move(2);
-			}
+//			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+//				playerTank.move(4);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_LEFT){
+//				playerTank.move(3);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_UP){
+//				playerTank.move(1);
+//			}
+//			if (e.getKeyCode() == KeyEvent.VK_DOWN){
+//				playerTank.move(2);
+//			}
 			if (e.getKeyCode() == KeyEvent.VK_SPACE){
 				bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 1, playerTank.getOrient()));
 			}
@@ -100,6 +109,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
+			playerTank.checkImpact(enemyTankMgr);
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
 				playerTank.move(4);
 			}
@@ -119,18 +129,22 @@ public class PlayPanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 		while (true){
+			
+			
 			bulletMgr.moveAllBullet();
 			if (enemyTankMgr.getSize() < 10){
 				EnemyTank enemyTank = new EnemyTank(30, 30, 1, 1);
 				enemyTankMgr.addEnemyTank(enemyTank);
 			}
+			enemyTankMgr.checkImpact(playerTank);//-------------------------
 			enemyTankMgr.AutoControlAllTank(count, bulletMgr);
 			enemyTankMgr.checkAllEnemyTank(bulletMgr);
-			if (playerTank.checkPlayerTank(bulletMgr)){
-				System.out.println("da bi ban chet");
-			}
-			repaint();
+			playerTank.checkImpact(enemyTankMgr);//--------------------------
+			playerTank.resetImpact();
+			enemyTankMgr.resetImpact();
+			
 			count++;
+			repaint();
 			if (count > 10000) {count = 0;}
 			try {
 				Thread.sleep(10);
