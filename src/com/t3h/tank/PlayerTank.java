@@ -33,6 +33,15 @@ public class PlayerTank extends Tank{
 		}
 		return false;
 	}
+	
+	public void checkImpact(EnemyTankManager enemyTankMgr){//---------------------------------------
+		for (int i = 0; i < enemyTankMgr.getSize(); i++) {
+			this.checkUp(enemyTankMgr.getEnemyTank(i));
+			this.checkDown(enemyTankMgr.getEnemyTank(i));
+			this.checkLeft(enemyTankMgr.getEnemyTank(i));
+			this.checkRight(enemyTankMgr.getEnemyTank(i));
+		}
+	}
 
 }
       

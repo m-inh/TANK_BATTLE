@@ -3,11 +3,15 @@ package com.t3h.bullet;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import com.t3h.boom.Boom;
+import com.t3h.boom.BoomManager;
+import com.t3h.boom.Commons_Boom;
 import com.t3h.graphics.Map;
 
 public class BulletManager {
 	private ArrayList<Bullet> bulletMgr;
 	private Map map;
+	private BoomManager boomMgr;
 	
 	public BulletManager() {
 		bulletMgr = new ArrayList<>();
@@ -47,7 +51,13 @@ public class BulletManager {
 		}
 	}
 	
+	public void setBoomMgr(BoomManager boomMgr) {
+		this.boomMgr = boomMgr;
+	}
+	
 	public void removeBullet(int i){
+		Boom boom = new Boom(bulletMgr.get(i).getX(), bulletMgr.get(i).getY(), Commons_Boom.EXPLOSION_BULLET_TYPE);
+		boomMgr.addBoom(boom);
 		bulletMgr.remove(i);
 	}
 	
