@@ -36,13 +36,12 @@ public class EnemyTankManager {
 	}
 	
 	public void checkAllEnemyTank(BulletManager bulletMgr){
-		int bulletMgrSize = bulletMgr.getSize();
 		int bulletX = 0;
 		int bulletY = 0;
 		int tankX = 0;
 		int tankY = 0;
 		int bulletType = 0;
-		for (int i = 0; i < bulletMgrSize; i++) {
+		for (int i = 0; i < bulletMgr.getSize(); i++) {
 			bulletX = bulletMgr.getBullet(i).getX();
 			bulletY = bulletMgr.getBullet(i).getY();
 			for (int j = 0; j < enemyTankMgr.size(); j++) {
@@ -53,13 +52,12 @@ public class EnemyTankManager {
 					// neu vi tri cua dan == vi tri cua tank -> remove tank + remove bullet + boom
 					enemyTankMgr.remove(j);
 					bulletMgr.removeBullet(i);
-					bulletMgrSize = bulletMgr.getSize();
 					i--;
 					if (i < 0) {break;}
 					j--;
 				}
-				
 			}
+			if (i < 0) {break;}
 		}
 	}
 	

@@ -34,16 +34,16 @@ public class Bullet {
 	public void move(){
 		switch (orient) {
 		case Commons.UP_ORIENT:
-			y--;
+			y-= commons.BULLET_SPEED;
 			break;
 		case Commons.DOWN_ORIENT:
-			y++;
+			y+= commons.BULLET_SPEED;
 			break;
 		case Commons.LEFT_ORIENT:
-			x--;
+			x-= commons.BULLET_SPEED;
 			break;
 		case Commons.RIGHT_ORIENT:
-			x++;
+			x+= commons.BULLET_SPEED;
 			break;
 		default:
 			break;

@@ -41,6 +41,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		
 		b = new Bullet(10, 10, 1, 1, 1, 2);
 		bulletMgr = new BulletManager();
+		bulletMgr.setMap(this.map);
 		
 		playerTank = new PlayerTank(30, 30, 4, 1);
 		playerTank.setMap(map);
@@ -117,17 +118,17 @@ public class PlayPanel extends JPanel implements Runnable{
 	
 	@Override
 	public void run() {
-//		JOptionPane.showMessageDialog(null, "ok2");
 		while (true){
-			//playerTank.move(4);
-			
 			bulletMgr.moveAllBullet();
-			if (enemyTankMgr.getSize() < 1000){
+			if (enemyTankMgr.getSize() < 10){
 				EnemyTank enemyTank = new EnemyTank(30, 30, 1, 1);
 				enemyTankMgr.addEnemyTank(enemyTank);
 			}
 			enemyTankMgr.AutoControlAllTank(count, bulletMgr);
 			enemyTankMgr.checkAllEnemyTank(bulletMgr);
+			if (playerTank.checkPlayerTank(bulletMgr)){
+				System.out.println("da bi ban chet");
+			}
 			repaint();
 			count++;
 			if (count > 10000) {count = 0;}

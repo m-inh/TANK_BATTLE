@@ -62,7 +62,6 @@ public abstract class Tank {
 	}
 	
 	public void move(int new_orient){
-//		JOptionPane.showMessageDialog(null, "ok");
 		if (checkMove(new_orient)){
 			switch (new_orient) {
 			case 1:
@@ -133,7 +132,6 @@ public abstract class Tank {
 		}
 //		if (type1 == 0 && type2 == 0){
 		if (type2 == 0){
-//			System.out.println(x + " " + y);
 			return true;
 		}
 			

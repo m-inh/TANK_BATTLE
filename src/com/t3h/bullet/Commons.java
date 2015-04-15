@@ -17,6 +17,8 @@ public class Commons {
 	public static final int BULLET_TYPE_PLAYER = 1;
 	public static final int BULLET_TYPE_ENEMY = 2;
 	
+	public static final int BULLET_SPEED = 3;
+	
 	public Commons() {
 		BULLET = getBulletImage("/RESOURCE/Image/bullet.png");
 	}

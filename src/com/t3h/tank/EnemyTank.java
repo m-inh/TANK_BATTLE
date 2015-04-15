@@ -62,7 +62,7 @@ public class EnemyTank extends Tank{
 	
 	private void autoFire(BulletManager bulletMgr){
 		if (random.nextInt(100) > 98){
-			Bullet bullet = new Bullet(this.x+16, this.y+16, 2, 1, 1, getOrient());
+			Bullet bullet = new Bullet(this.x+13, this.y+13, 2, 1, 1, getOrient());
 			bulletMgr.addBullet(bullet);
 		}
 	}
