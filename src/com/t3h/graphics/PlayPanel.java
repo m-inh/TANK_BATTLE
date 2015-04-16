@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +28,8 @@ public class PlayPanel extends JPanel implements Runnable{
 	private Graphics2D g2d;
 	private int count;
 	private Map map;
+	private int mapNumber;
+	private int tankPosition[];
 	private BulletManager bulletMgr;
 	private BoomManager boomMgr;
 	private PlayerTank playerTank;
@@ -38,6 +41,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		setBounds(0, 0, Commons.WIDTH_PANEL, Commons.HEIGHT_PANEL);
 		setLayout(null);
 		setBackground(Color.BLACK);
+<<<<<<< HEAD
 		
 		addKeyListener(moveAdapter);
 		setFocusable(true);
@@ -54,12 +58,21 @@ public class PlayPanel extends JPanel implements Runnable{
 		Commons c = new Commons();
 		bground = c.getImage("/RESOURCE/Image/bg_contai_panel.png");
 		
+=======
+		mapNumber = 1;
+		setMap(mapNumber);
+		setTankPosition(mapNumber);
+>>>>>>> 4fdb1093c46596fadeff81722158eb4570383f86
 		boomMgr = new BoomManager();
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
 		bulletMgr.setBoomMgr(boomMgr);
+<<<<<<< HEAD
 		
 		playerTank = new PlayerTank(350, 250, 4, 1);
+=======
+		playerTank = new PlayerTank(250, 630, 1, 1);
+>>>>>>> 4fdb1093c46596fadeff81722158eb4570383f86
 		playerTank.setMap(map);
 		
 		enemyTankMgr = new EnemyTankManager();
@@ -69,6 +82,52 @@ public class PlayPanel extends JPanel implements Runnable{
 	
 	private void setMap(int mapNumber){
 		map = new Map(mapNumber);
+	}
+	
+	private void setTankPosition(int mapNumber){
+		tankPosition = new int[4];
+		switch (mapNumber) {
+		case 1:
+			tankPosition[0] = 30;
+			tankPosition[1] = 220;
+			tankPosition[2] = 380;
+			tankPosition[3] = 620;
+			break;
+		case 2:
+			tankPosition[0] = 30;
+			tankPosition[1] = 235;
+			tankPosition[2] = 440;
+			tankPosition[3] = 620;
+			break;
+		case 3:
+			tankPosition[0] = 30;
+			tankPosition[1] = 220;
+			tankPosition[2] = 320;
+			tankPosition[3] = 620;
+			break;
+		case 4:
+			tankPosition[0] = 30;
+			tankPosition[1] = 220;
+			tankPosition[2] = 485;
+			tankPosition[3] = 620;
+			break;
+		case 5:
+			tankPosition[0] = 180;
+			tankPosition[1] = 280;
+			tankPosition[2] = 380;
+			tankPosition[3] = 500;
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private boolean checkWin(){
+		if (enemyTankMgr.getTankDestroy() >= 10){
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	@Override
@@ -142,12 +201,25 @@ public class PlayPanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 		while (true){
-			
-			
 			bulletMgr.moveAllBullet();
-			if (enemyTankMgr.getSize() < 10){
-				EnemyTank enemyTank = new EnemyTank(30, 30, 1, 1);
+			if (enemyTankMgr.getSize() < 10 && enemyTankMgr.getTotalTank() < 20){
+				EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 1);
 				enemyTankMgr.addEnemyTank(enemyTank);
+			}
+			System.out.println(enemyTankMgr.getTankDestroy());
+			if (enemyTankMgr.getTankDestroy() >= 20){
+				JOptionPane.showMessageDialog(null, "Win cmnr!");
+				mapNumber++;
+				setMap(mapNumber);
+				bulletMgr = new BulletManager();
+				bulletMgr.setMap(this.map);
+				bulletMgr.setBoomMgr(boomMgr);
+				playerTank = new PlayerTank(250, 630, 1, 1);
+				playerTank.setMap(map);
+				enemyTankMgr = new EnemyTankManager();
+				enemyTankMgr.setMap(map);
+				enemyTankMgr.setBoomMgr(boomMgr);
+				setTankPosition(mapNumber);
 			}
 			enemyTankMgr.checkImpact(playerTank);//-------------------------
 			enemyTankMgr.AutoControlAllTank(count, bulletMgr);

@@ -12,11 +12,15 @@ import com.t3h.graphics.Sound;
 
 public class EnemyTankManager {
 	private ArrayList<EnemyTank> enemyTankMgr;
+	private int tankDestroy;
+	private int totalTank;
 	private Map map;
 	private BoomManager boomMgr;
 	
 	public EnemyTankManager() {
 		enemyTankMgr = new ArrayList<>();
+		tankDestroy = 0;
+		totalTank = 0;
 	}
 	
 	public void setMap(Map map){
@@ -26,6 +30,7 @@ public class EnemyTankManager {
 	public void addEnemyTank(EnemyTank eTank){
 		eTank.setMap(this.map);
 		enemyTankMgr.add(eTank);
+		totalTank++;
 	}
 	
 	public void AutoControlAllTank(int count, BulletManager bulletMgr){
@@ -59,7 +64,11 @@ public class EnemyTankManager {
 					Boom boom = new Boom(tankX + 16, tankY + 16, Commons_Boom.EXPLOSION_TANK_TYPE);
 					boomMgr.addBoom(boom);
 					enemyTankMgr.remove(j);
+<<<<<<< HEAD
 					EnemyTank.sound.playExplosionTank();//--------------------------------------------------
+=======
+					tankDestroy++;
+>>>>>>> 4fdb1093c46596fadeff81722158eb4570383f86
 					bulletMgr.removeBullet(i);
 					i--;
 					if (i < 0) {break;}
@@ -101,6 +110,12 @@ public class EnemyTankManager {
 	
 	public int getSize(){
 		return enemyTankMgr.size();
+	}
+	public int getTankDestroy() {
+		return tankDestroy;
+	}
+	public int getTotalTank() {
+		return totalTank;
 	}
 }
 
