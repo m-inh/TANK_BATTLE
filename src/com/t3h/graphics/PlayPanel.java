@@ -3,12 +3,12 @@ package com.t3h.graphics;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -23,6 +23,7 @@ import com.t3h.tank.PlayerTank;
 import com.t3h.tank.Tank;
 
 public class PlayPanel extends JPanel implements Runnable{
+	private Image bground;
 	private Graphics2D g2d;
 	private int count;
 	private Map map;
@@ -30,29 +31,40 @@ public class PlayPanel extends JPanel implements Runnable{
 	private BoomManager boomMgr;
 	private PlayerTank playerTank;
 	private EnemyTankManager enemyTankMgr;
-	private Boom boom;
+//	private Boom boom;
 	private Thread th;
 	
 	public PlayPanel() {
 		setBounds(0, 0, Commons.WIDTH_PANEL, Commons.HEIGHT_PANEL);
 		setLayout(null);
 		setBackground(Color.BLACK);
-		setMap(1);
+		
+		addKeyListener(moveAdapter);
+		setFocusable(true);
+		addMouseListener(click);
+		
+		loadData();
+		
+		th = new Thread(this);
+		th.start();
+	}
+	
+	public void loadData(){
+		setMap(5);
+		Commons c = new Commons();
+		bground = c.getImage("/RESOURCE/Image/bg_contai_panel.png");
+		
 		boomMgr = new BoomManager();
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
 		bulletMgr.setBoomMgr(boomMgr);
+		
 		playerTank = new PlayerTank(350, 250, 4, 1);
 		playerTank.setMap(map);
+		
 		enemyTankMgr = new EnemyTankManager();
 		enemyTankMgr.setMap(map);
 		enemyTankMgr.setBoomMgr(boomMgr);
-		
-		addKeyListener(moveAdapter);
-		addMouseListener(click);
-		th = new Thread(this);
-		th.start();
-		setFocusable(true);
 	}
 	
 	private void setMap(int mapNumber){
@@ -64,11 +76,13 @@ public class PlayPanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
 		
-		map.drawMap(g2d);
+		g2d.drawImage(bground, 0, 0, 700, 700, null);
 		bulletMgr.drawAllBullet(g2d);
 		playerTank.drawTank(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
+		map.drawMap(g2d);
 		boomMgr.exploredAllBoom(count, g2d);
+		
 	}
 	
 	private MouseAdapter click = new MouseAdapter() {
@@ -82,6 +96,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		@Override
 		public void keyReleased(KeyEvent e) {
 //			JOptionPane.showMessageDialog(null, "ok");
+//			playerTank.checkImpact(enemyTankMgr);
 //			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
 //				playerTank.move(4);
 //			}
@@ -96,6 +111,7 @@ public class PlayPanel extends JPanel implements Runnable{
 //			}
 			if (e.getKeyCode() == KeyEvent.VK_SPACE){
 				bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 1, playerTank.getOrient()));
+				Tank.sound.playShoot();//--------------------------------------------------
 			}
 			repaint();
 		}
@@ -104,16 +120,20 @@ public class PlayPanel extends JPanel implements Runnable{
 		public void keyPressed(KeyEvent e) {
 			playerTank.checkImpact(enemyTankMgr);
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-				playerTank.move(4);
+				playerTank.move(4);//--------------------------------- Nen thay la switch
+				Tank.sound.playMove();
 			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT){
-				playerTank.move(3);
+				playerTank.move(3);//--------------------------------------------------
+				Tank.sound.playMove();
 			}
 			if (e.getKeyCode() == KeyEvent.VK_UP){
-				playerTank.move(1);
+				playerTank.move(1);//--------------------------------------------------
+				Tank.sound.playMove();
 			}
 			if (e.getKeyCode() == KeyEvent.VK_DOWN){
-				playerTank.move(2);
+				playerTank.move(2);//--------------------------------------------------
+				Tank.sound.playMove();
 			}
 			repaint();
 		}
@@ -139,6 +159,7 @@ public class PlayPanel extends JPanel implements Runnable{
 				//System.out.println("da bi ban chet");
 				Boom boom = new Boom(playerTank.getX() + 16, playerTank.getY() + 16, Commons_Boom.EXPLOSION_TANK_TYPE);
 				boomMgr.addBoom(boom);
+				Tank.sound.playExplosionTank();//--------------------------------------------------
 			}
 			count++;
 			repaint();

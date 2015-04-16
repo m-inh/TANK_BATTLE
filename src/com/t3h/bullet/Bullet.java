@@ -23,8 +23,8 @@ public class Bullet {
 		this.orient = orient;
 		this.speed = speed;
 		this.strong = strong;
-		this.img = commons.BULLET;
-		this.size = commons.SIZE_BULLET;
+		this.img = Commons.BULLET;
+		this.size = Commons.SIZE_BULLET;
 	}
 	
 	public void drawBullet(Graphics2D g2d){
@@ -34,16 +34,16 @@ public class Bullet {
 	public void move(){
 		switch (orient) {
 		case Commons.UP_ORIENT:
-			y-= commons.BULLET_SPEED;
+			y-= Commons.BULLET_SPEED;
 			break;
 		case Commons.DOWN_ORIENT:
-			y+= commons.BULLET_SPEED;
+			y+= Commons.BULLET_SPEED;
 			break;
 		case Commons.LEFT_ORIENT:
-			x-= commons.BULLET_SPEED;
+			x-= Commons.BULLET_SPEED;
 			break;
 		case Commons.RIGHT_ORIENT:
-			x+= commons.BULLET_SPEED;
+			x+= Commons.BULLET_SPEED;
 			break;
 		default:
 			break;
@@ -54,19 +54,19 @@ public class Bullet {
 		this.strong = strong;
 		switch (strong) {
 		case 1:
-			size = (int)(commons.SIZE_BULLET * Math.pow(1.2, strong));
+			size = (int)(Commons.SIZE_BULLET * Math.pow(1.2, strong));
 			break;
 		case 2:
-			size = (int)(commons.SIZE_BULLET * Math.pow(1.1, strong));
+			size = (int)(Commons.SIZE_BULLET * Math.pow(1.1, strong));
 			break;
 		case 3:
-			size = (int)(commons.SIZE_BULLET * Math.pow(1.1, strong));
+			size = (int)(Commons.SIZE_BULLET * Math.pow(1.1, strong));
 			break;
 		case 4:
-			size = (int)(commons.SIZE_BULLET * Math.pow(1.1, strong));
+			size = (int)(Commons.SIZE_BULLET * Math.pow(1.1, strong));
 			break;
 		case 5:
-			size = (int)(commons.SIZE_BULLET * Math.pow(1.1, strong));
+			size = (int)(Commons.SIZE_BULLET * Math.pow(1.1, strong));
 			break;
 		default:
 			break;
@@ -93,47 +93,3 @@ public class Bullet {
 		return strong;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

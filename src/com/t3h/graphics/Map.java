@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 
 public class Map {
 	private int type; // 0 1 2 3 4 
-	private Image bground;
 	
 	private File file;
 	private RandomAccessFile rdf;
@@ -22,23 +21,16 @@ public class Map {
 	public Map(int type) {
 		this.type = type;
 		
-		bground = common.getImage("/RESOURCE/Image/bg_contai_panel.png");
 		createMatrix();
-//		String pathMap =  "/RESOURCE/Map/map" + type;
 		String tempFilePath = getClass().getResource("/RESOURCE/Map").toString();
-//		System.out.println(tempFilePath);
-//		String pathMap = "C://Users/TMQ/Documents/TANK_BATTLE/src/RESOURCE/Map/map" + type;
 		String pathMap = tempFilePath.substring(6) + "/map" + type;
 		file = new File(pathMap);
-//		if (file.exists()) JOptionPane.showMessageDialog(null, "File ton tai");
-//		else JOptionPane.showMessageDialog(null, "file k ton tai");
 		openFile();
 		readFile();
 		closeFile();
 	}
 	
 	public void drawMap(Graphics2D g2d){
-		g2d.drawImage(bground, 0, 0, 700, 700, null);
 		drawComponent(g2d);
 	}
 	private void drawComponent(Graphics2D g2d){
@@ -60,6 +52,10 @@ public class Map {
 					}
 					case 3:{
 						g2d.drawImage(Commons.brick2, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						break;
+					}
+					case 5:{
+						g2d.drawImage(Commons.tree, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT,null);
 						break;
 					}
 					default:{	// chỉ Demo, sau này phải xóa cái ảnh này	
@@ -124,12 +120,7 @@ public class Map {
 	
 	private void createMatrix(){
 		matrix = new int [Commons.sizeMap][Commons.sizeMap];
-//		for (int i = 0; i < matrix.length; i++) {
-//			for (int j = 0; j < matrix[0].length; j++) {
-//				matrix[i][j] = 0;
-//			}
-//		}
-		for (int i = 0; i < common.sizeMap; i++) {
+		for (int i = 0; i < Commons.sizeMap; i++) {
 			matrix[0][i] = 2;
 			matrix[i][0] = 2;
 			matrix[Commons.sizeMap - 1][i] = 2;
@@ -138,27 +129,11 @@ public class Map {
 	}
 	
 	public void setMatrix(int x, int y, int type) {
-		matrix[x/common.SIZE_COMPONENT][y/common.SIZE_COMPONENT] = type;
+		matrix[x/Commons.SIZE_COMPONENT][y/Commons.SIZE_COMPONENT] = type;
 	}
 	
 	public int getType(int xScreen, int yScreen){
-		return matrix[xScreen/common.SIZE_COMPONENT][yScreen/common.SIZE_COMPONENT];
+		return matrix[xScreen/Commons.SIZE_COMPONENT][yScreen/Commons.SIZE_COMPONENT];
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

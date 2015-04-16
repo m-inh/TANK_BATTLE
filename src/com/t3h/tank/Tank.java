@@ -9,8 +9,10 @@ import javax.swing.JOptionPane;
 import com.t3h.boom.BoomManager;
 import com.t3h.bullet.BulletManager;
 import com.t3h.graphics.Map;
+import com.t3h.graphics.Sound;
 
 public abstract class Tank {
+	public static Sound sound = new Sound();//--------------------------------------------------
 	protected int x, y;
 	protected Commons commons;
 	private int orient;
@@ -148,11 +150,11 @@ public abstract class Tank {
 		default:
 			break;
 		}
-		if (type1 == 0 && type2 == 0){
+		if ((type1 == 0 && type2 == 0) || (type1 == 5 && type2 == 5) || (type1==0&&type2==5)||(type1==5&&type2==0)){//----------------------------------------------
 //		if (type2 == 0){
 //			System.out.println(x + " " + y);
 			return true;
-		}			
+		}
 		return false;
 	}
 	

@@ -8,6 +8,7 @@ import com.t3h.boom.BoomManager;
 import com.t3h.boom.Commons_Boom;
 import com.t3h.bullet.BulletManager;
 import com.t3h.graphics.Map;
+import com.t3h.graphics.Sound;
 
 public class EnemyTankManager {
 	private ArrayList<EnemyTank> enemyTankMgr;
@@ -58,6 +59,7 @@ public class EnemyTankManager {
 					Boom boom = new Boom(tankX + 16, tankY + 16, Commons_Boom.EXPLOSION_TANK_TYPE);
 					boomMgr.addBoom(boom);
 					enemyTankMgr.remove(j);
+					EnemyTank.sound.playExplosionTank();//--------------------------------------------------
 					bulletMgr.removeBullet(i);
 					i--;
 					if (i < 0) {break;}
