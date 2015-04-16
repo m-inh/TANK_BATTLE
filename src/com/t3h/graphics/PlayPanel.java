@@ -41,14 +41,10 @@ public class PlayPanel extends JPanel implements Runnable{
 		setBounds(0, 0, Commons.WIDTH_PANEL, Commons.HEIGHT_PANEL);
 		setLayout(null);
 		setBackground(Color.BLACK);
-<<<<<<< HEAD
-		
 		addKeyListener(moveAdapter);
 		setFocusable(true);
 		addMouseListener(click);
-		
 		loadData();
-		
 		th = new Thread(this);
 		th.start();
 	}
@@ -57,22 +53,15 @@ public class PlayPanel extends JPanel implements Runnable{
 		setMap(5);
 		Commons c = new Commons();
 		bground = c.getImage("/RESOURCE/Image/bg_contai_panel.png");
-		
-=======
+
 		mapNumber = 1;
 		setMap(mapNumber);
 		setTankPosition(mapNumber);
->>>>>>> 4fdb1093c46596fadeff81722158eb4570383f86
 		boomMgr = new BoomManager();
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
 		bulletMgr.setBoomMgr(boomMgr);
-<<<<<<< HEAD
-		
-		playerTank = new PlayerTank(350, 250, 4, 1);
-=======
 		playerTank = new PlayerTank(250, 630, 1, 1);
->>>>>>> 4fdb1093c46596fadeff81722158eb4570383f86
 		playerTank.setMap(map);
 		
 		enemyTankMgr = new EnemyTankManager();
@@ -210,6 +199,9 @@ public class PlayPanel extends JPanel implements Runnable{
 			if (enemyTankMgr.getTankDestroy() >= 20){
 				JOptionPane.showMessageDialog(null, "Win cmnr!");
 				mapNumber++;
+				if (mapNumber > 5){
+					JOptionPane.showMessageDialog(null, "Win cmnr, bien cmm de!");
+				}
 				setMap(mapNumber);
 				bulletMgr = new BulletManager();
 				bulletMgr.setMap(this.map);

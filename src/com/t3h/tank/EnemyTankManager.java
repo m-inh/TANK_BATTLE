@@ -64,11 +64,8 @@ public class EnemyTankManager {
 					Boom boom = new Boom(tankX + 16, tankY + 16, Commons_Boom.EXPLOSION_TANK_TYPE);
 					boomMgr.addBoom(boom);
 					enemyTankMgr.remove(j);
-<<<<<<< HEAD
 					EnemyTank.sound.playExplosionTank();//--------------------------------------------------
-=======
 					tankDestroy++;
->>>>>>> 4fdb1093c46596fadeff81722158eb4570383f86
 					bulletMgr.removeBullet(i);
 					i--;
 					if (i < 0) {break;}
