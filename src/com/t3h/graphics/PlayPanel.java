@@ -229,7 +229,7 @@ public class PlayPanel extends JPanel implements Runnable{
 			repaint();
 			if (count > 10000) count = 0;
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
