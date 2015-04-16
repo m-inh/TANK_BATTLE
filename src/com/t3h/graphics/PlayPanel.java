@@ -130,7 +130,6 @@ public class PlayPanel extends JPanel implements Runnable{
 		enemyTankMgr.drawAllEnemyTank(g2d);
 		map.drawMap(g2d);
 		boomMgr.exploredAllBoom(count, g2d);
-		
 	}
 	
 	private MouseAdapter click = new MouseAdapter() {
@@ -140,48 +139,69 @@ public class PlayPanel extends JPanel implements Runnable{
 		}
 	};
 	
+	
+	long lastShoot = System.currentTimeMillis();//-----------------------------
+	long threshold = 300;//----------------------------------------------------
+	boolean upPressed = false;
+	boolean downPressed = false;
+	boolean leftPressed = false;
+	boolean rightPressed = false;
 	private KeyAdapter moveAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
 //			JOptionPane.showMessageDialog(null, "ok");
-//			playerTank.checkImpact(enemyTankMgr);
-//			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+			playerTank.checkImpact(enemyTankMgr);
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
 //				playerTank.move(4);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_LEFT){
+				rightPressed = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT){
 //				playerTank.move(3);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_UP){
+				leftPressed = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_UP){
 //				playerTank.move(1);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_DOWN){
+				upPressed = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN){
 //				playerTank.move(2);
-//			}
+				downPressed = false;
+			}
+			
 			if (e.getKeyCode() == KeyEvent.VK_SPACE){
-				bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 1, playerTank.getOrient()));
-				Tank.sound.playShoot();//--------------------------------------------------
+				long now = System.currentTimeMillis();
+				if (now - lastShoot > threshold){
+					bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 1, playerTank.getOrient()));
+					Tank.sound.playShoot();//--------------------------------------------------
+					lastShoot = now;
+			     }
 			}
 			repaint();
 		}
-		
+		long lastUp = System.currentTimeMillis();//-----------------------------
+		long timeUp = 300;//----------------------------------------------------
 		@Override
 		public void keyPressed(KeyEvent e) {
 			playerTank.checkImpact(enemyTankMgr);
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-				playerTank.move(4);//--------------------------------- Nen thay la switch
-				Tank.sound.playMove();
+//				playerTank.move(4);//--------------------------------- Nen thay la switch
+//				Tank.sound.playMove();
+				rightPressed = true;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT){
-				playerTank.move(3);//--------------------------------------------------
-				Tank.sound.playMove();
+//				playerTank.move(3);//--------------------------------------------------
+//				Tank.sound.playMove();
+				leftPressed = true;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_UP){
-				playerTank.move(1);//--------------------------------------------------
-				Tank.sound.playMove();
+//				playerTank.move(1);//--------------------------------------------------
+//				Tank.sound.playMove();
+				upPressed = true;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_DOWN){
-				playerTank.move(2);//--------------------------------------------------
-				Tank.sound.playMove();
+//				playerTank.move(2);//--------------------------------------------------
+//				Tank.sound.playMove();
+				downPressed = true;
 			}
 			repaint();
 		}
@@ -195,7 +215,7 @@ public class PlayPanel extends JPanel implements Runnable{
 				EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 1);
 				enemyTankMgr.addEnemyTank(enemyTank);
 			}
-			System.out.println(enemyTankMgr.getTankDestroy());
+//			System.out.println(enemyTankMgr.getTankDestroy());
 			if (enemyTankMgr.getTankDestroy() >= 20){
 				JOptionPane.showMessageDialog(null, "Win cmnr!");
 				mapNumber++;
@@ -217,6 +237,20 @@ public class PlayPanel extends JPanel implements Runnable{
 			enemyTankMgr.AutoControlAllTank(count, bulletMgr);
 			enemyTankMgr.checkAllEnemyTank(bulletMgr);
 			playerTank.checkImpact(enemyTankMgr);//--------------------------
+			//-----------------------
+			if (upPressed){
+				playerTank.move(1);
+			}
+			if (downPressed){
+				playerTank.move(2);
+			}
+			if (leftPressed){
+				playerTank.move(3);
+			}
+			if (rightPressed){
+				playerTank.move(4);
+			}
+			//-----------------------
 			playerTank.resetImpact();
 			enemyTankMgr.resetImpact();
 			if (playerTank.checkPlayerTank(bulletMgr)){
