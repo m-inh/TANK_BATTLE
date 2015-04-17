@@ -15,6 +15,7 @@ public class Commons {
 	public static final int sizeMap = 28;
 	
 	
+	public static Image rim;
 	public static Image brick1;	// Gáº¡ch
 	public static Image brick2;	// Gáº¡ch bá»‹ báº¯n
 	public static Image stone;	// Ä�Ã¡
@@ -24,6 +25,7 @@ public class Commons {
 	
 	
 	public static final int NONE	= 0;
+	public static final int RIM		= 11;
 	public static final int BRICK1	= 1;
 	public static final int BRICK2	= 10;
 	public static final int STONE	= 2;
@@ -37,6 +39,7 @@ public class Commons {
 		stone		= getImage("/RESOURCE/Image/stone.png");
 		tree		= getImage("/RESOURCE/Image/tree.png");
 		water		= getImage("/RESOURCE/Image/water.png");
+		rim			= getImage("/RESOURCE/Image/rim.png");
 		componentDefault = getImage("/RESOURCE/Image/bullet.png");
 	}
 	

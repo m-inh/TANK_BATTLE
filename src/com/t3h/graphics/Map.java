@@ -25,10 +25,7 @@ public class Map {
 		closeFile();
 	}
 	
-	public void drawMap(Graphics2D g2d){
-		drawComponent(g2d);
-	}
-	public void drawUnderComponent(Graphics2D g2d){
+	public void drawUnderComponent(Graphics2D g2d){// Ve truong hop co nuoc
 		int type;
 		for (int i=1; i<Commons.sizeMap-1; i++){
 			for (int j=1; j<Commons.sizeMap-1; j++){
@@ -45,16 +42,22 @@ public class Map {
 			}
 		}
 	}
-	private void drawComponent(Graphics2D g2d){
+	public void drawComponent(Graphics2D g2d){
 		int type;
-		for (int i=1; i<Commons.sizeMap-1; i++){
-			for (int j=1; j<Commons.sizeMap-1; j++){
+		for (int i=0; i<Commons.sizeMap; i++){
+			for (int j=0; j<Commons.sizeMap; j++){
 				type = matrix[i][j];
 				switch(type){
 					case Commons.NONE:{
 						break;
 					}
+					case Commons.RIM:{
+						System.out.println("rim");
+						g2d.drawImage(Commons.rim, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						break;
+					}
 					case Commons.BRICK1:{
+						System.out.println("Brick");
 						g2d.drawImage(Commons.brick1, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
@@ -70,8 +73,7 @@ public class Map {
 						g2d.drawImage(Commons.tree, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT,null);
 						break;
 					}
-					default:{	// chỉ Demo, sau này phải xóa cái ảnh này	
-						g2d.drawImage(Commons.componentDefault, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, null);
+					default:{	
 						break;
 					}
 				}
@@ -133,10 +135,11 @@ public class Map {
 	private void createMatrix(){
 		matrix = new int [Commons.sizeMap][Commons.sizeMap];
 		for (int i = 0; i < Commons.sizeMap; i++) {
-			matrix[0][i] = 2;
-			matrix[i][0] = 2;
-			matrix[Commons.sizeMap - 1][i] = 2;
-			matrix[i][Commons.sizeMap - 1] = 2;
+			matrix[0][i]
+						= matrix[i][0]
+						= matrix[Commons.sizeMap - 1][i]
+						= matrix[i][Commons.sizeMap - 1]
+						= Commons.RIM;
 		}
 	}
 	

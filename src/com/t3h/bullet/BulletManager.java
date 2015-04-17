@@ -57,13 +57,11 @@ public class BulletManager {
 		switch (map.getType(bullet.getX(), bullet.getY())) {
 			case Commons.NONE:
 			case Commons.TREE:
-			case Commons.WATER:
-				return false;
+			case Commons.WATER:		return false;
+			case Commons.RIM:
+			case Commons.STONE:		break;
 			case Commons.BRICK1:{
 				map.setMatrix(bullet.getX(), bullet.getY(), Commons.BRICK2);
-				break;
-			}
-			case Commons.STONE:{
 				break;
 			}
 			case Commons.BRICK2:{

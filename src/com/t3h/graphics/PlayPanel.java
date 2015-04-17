@@ -24,7 +24,6 @@ import com.t3h.tank.PlayerTank;
 import com.t3h.tank.Tank;
 
 public class PlayPanel extends JPanel implements Runnable{
-	private Image bground;
 	private Graphics2D g2d;
 	private int count;
 	private Map map;
@@ -52,7 +51,6 @@ public class PlayPanel extends JPanel implements Runnable{
 	public void loadData(){
 		setMap(5);
 		Commons c = new Commons();
-		bground = c.getImage("/RESOURCE/Image/bg_contai_panel.png");
 
 		mapNumber = 3;
 		setMap(mapNumber);
@@ -124,12 +122,11 @@ public class PlayPanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
 		
-		g2d.drawImage(bground, 0, 0, 700, 700, null);
 		map.drawUnderComponent(g2d);
 		bulletMgr.drawAllBullet(g2d);
 		playerTank.drawTank(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
-		map.drawMap(g2d);
+		map.drawComponent(g2d);
 		boomMgr.exploredAllBoom(count, g2d);
 	}
 	
