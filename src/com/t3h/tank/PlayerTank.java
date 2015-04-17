@@ -12,16 +12,16 @@ public class PlayerTank extends Tank{
 
 	public PlayerTank(int x, int y, int orient, int speed) {
 		super(x, y, orient, speed);
-		setHealth(Commons.HEALTH_PLAYER_TANK);
+		setHealth(CommonsTank.HEALTH_PLAYER_TANK);
 		setImage();
 	}
 
 	@Override
 	public void setImage() {
-		UpImg 		= Commons.UP_PLAYER_TANK;
-		downImg		= Commons.DOWN_PLAYER_TANK;
-		leftImg		= Commons.LEFT_PLAYER_TANK;
-		rightImg	= Commons.RIGHT_PLAYER_TANK;
+		UpImg 		= CommonsTank.UP_PLAYER_TANK;
+		downImg		= CommonsTank.DOWN_PLAYER_TANK;
+		leftImg		= CommonsTank.LEFT_PLAYER_TANK;
+		rightImg	= CommonsTank.RIGHT_PLAYER_TANK;
 	}
 	
 	public boolean checkPlayerTank(BulletManager bulletMgr){
@@ -32,7 +32,7 @@ public class PlayerTank extends Tank{
 			bulletEnemyX = bulletMgr.getBullet(i).getX();
 			bulletEnemyY = bulletMgr.getBullet(i).getY();
 			typeTankEnemy = bulletMgr.getBullet(i).getType();
-			if ((getX() <= bulletEnemyX && getX()+32 >= bulletEnemyX) && (getY() <= bulletEnemyY && getY()+32 >= bulletEnemyY) && typeTankEnemy==Commons.BULLET_TYPE_ENEMY) {
+			if ((getX() <= bulletEnemyX && getX()+32 >= bulletEnemyX) && (getY() <= bulletEnemyY && getY()+32 >= bulletEnemyY) && typeTankEnemy==CommonsTank.BULLET_TYPE_ENEMY) {
 				bulletMgr.removeBullet(i);
 				return true;
 			}
@@ -85,16 +85,16 @@ public class PlayerTank extends Tank{
 	
 	public void control(){
 		if (upPressed){
-			move(Commons.UP);
+			move(CommonsTank.UP);
 		}
 		if (downPressed){
-			move(Commons.DOWN);
+			move(CommonsTank.DOWN);
 		}
 		if (leftPressed){
-			move(Commons.LEFT);
+			move(CommonsTank.LEFT);
 		}
 		if (rightPressed){
-			move(Commons.RIGHT);
+			move(CommonsTank.RIGHT);
 		}
 	}
 

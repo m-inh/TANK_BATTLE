@@ -10,7 +10,7 @@ public class EnemyTank extends Tank{
 
 	public EnemyTank(int x, int y, int orient, int speed) {
 		super(x, y, orient, speed);
-		setHealth(Commons.HEALTH_ENEMY_TANK);
+		setHealth(CommonsTank.HEALTH_ENEMY_TANK);
 		setImage();
 		
 		random = new Random();
@@ -18,10 +18,10 @@ public class EnemyTank extends Tank{
 
 	@Override
 	public void setImage() {
-		UpImg 		= Commons.UP_ENEMY_TANK;
-		downImg		= Commons.DOWN_ENEMY_TANK;
-		leftImg		= Commons.LEFT_ENEMY_TANK;
-		rightImg	= Commons.RIGHT_ENEMY_TANK;
+		UpImg 		= CommonsTank.UP_ENEMY_TANK;
+		downImg		= CommonsTank.DOWN_ENEMY_TANK;
+		leftImg		= CommonsTank.LEFT_ENEMY_TANK;
+		rightImg	= CommonsTank.RIGHT_ENEMY_TANK;
 	}
 	
 	public void auto(int count, BulletManager bulletMgr){

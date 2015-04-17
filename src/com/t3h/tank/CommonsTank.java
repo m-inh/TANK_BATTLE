@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Commons {
+public class CommonsTank {
 	public static final int UP_ORIENT 		= 1;
 	public static final int DOWN_ORIENT		= 2;
 	public static final int LEFT_ORIENT		= 3;
@@ -31,7 +31,7 @@ public class Commons {
 	public static final int BULLET_TYPE_PLAYER = 1;
 	public static final int BULLET_TYPE_ENEMY = 2;
 	
-	public Commons() {
+	public CommonsTank() {
 		UP_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_1.png");
 		DOWN_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_2.png");
 		LEFT_PLAYER_TANK = getImage("/RESOURCE/Image/player_green_3.png");

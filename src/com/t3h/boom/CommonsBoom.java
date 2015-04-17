@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Commons_Boom {
+public class CommonsBoom {
 	public static Image BULLET_EXPLOSION;
 	
 	public static Image TANK_EXPLOSION_1;
@@ -16,7 +16,7 @@ public class Commons_Boom {
 	public static final int EXPLOSION_BULLET_TYPE = 1;
 	public static final int EXPLOSION_TANK_TYPE = 2;
 	
-	public Commons_Boom() {
+	public CommonsBoom() {
 		BULLET_EXPLOSION = getImage("/RESOURCE/Image/explosion.png");
 		
 		TANK_EXPLOSION_1 = getImage("/RESOURCE/Image/tank_exp1.png");

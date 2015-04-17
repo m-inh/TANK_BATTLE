@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Commons {
+public class CommonsBullet {
 	public static Image BULLET;
 	
 	public static final int SIZE_BULLET = 8;
@@ -19,7 +19,7 @@ public class Commons {
 	
 	public static final int BULLET_SPEED = 3;
 	
-	public Commons() {
+	public CommonsBullet() {
 		BULLET = getBulletImage("/RESOURCE/Image/bullet.png");
 	}
 	

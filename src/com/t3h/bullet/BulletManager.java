@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.t3h.boom.Boom;
 import com.t3h.boom.BoomManager;
-import com.t3h.boom.Commons_Boom;
+import com.t3h.boom.CommonsBoom;
 import com.t3h.graphics.Commons;
 import com.t3h.graphics.Map;
 import com.t3h.graphics.Sound;
@@ -81,7 +81,7 @@ public class BulletManager {
 	}
 	
 	public void removeBullet(int i){
-		Boom boom = new Boom(bulletMgr.get(i).getX(), bulletMgr.get(i).getY(), Commons_Boom.EXPLOSION_BULLET_TYPE);
+		Boom boom = new Boom(bulletMgr.get(i).getX(), bulletMgr.get(i).getY(), CommonsBoom.EXPLOSION_BULLET_TYPE);
 		boomMgr.addBoom(boom);
 		bulletMgr.remove(i);
 		sound.playExplosion();//--------------------------------------------------

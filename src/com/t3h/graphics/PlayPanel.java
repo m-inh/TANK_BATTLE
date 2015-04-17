@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import com.t3h.boom.Boom;
 import com.t3h.boom.BoomManager;
-import com.t3h.boom.Commons_Boom;
+import com.t3h.boom.CommonsBoom;
 import com.t3h.bullet.Bullet;
 import com.t3h.bullet.BulletManager;
 import com.t3h.tank.EnemyTank;
@@ -201,7 +201,7 @@ public class PlayPanel extends JPanel implements Runnable{
 			enemyTankMgr.resetImpact();
 			if (playerTank.checkPlayerTank(bulletMgr)){
 				//System.out.println("da bi ban chet");
-				Boom boom = new Boom(playerTank.getX() + 16, playerTank.getY() + 16, Commons_Boom.EXPLOSION_TANK_TYPE);
+				Boom boom = new Boom(playerTank.getX() + 16, playerTank.getY() + 16, CommonsBoom.EXPLOSION_TANK_TYPE);
 				boomMgr.addBoom(boom);
 				Tank.sound.playExplosionTank();//--------------------------------------------------
 			}

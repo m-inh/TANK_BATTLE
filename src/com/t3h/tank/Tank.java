@@ -14,7 +14,7 @@ import com.t3h.graphics.Sound;
 public abstract class Tank {
 	public static Sound sound = new Sound();//--------------------------------------------------
 	protected int x, y;
-	protected Commons commons;
+	protected CommonsTank commons;
 	private int orient;
 	private int speed;
 	private int health;
@@ -35,7 +35,7 @@ public abstract class Tank {
 
 	
 	public Tank(int x, int y, int orient, int speed) {
-		commons = new Commons();
+		commons = new CommonsTank();
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
@@ -51,16 +51,16 @@ public abstract class Tank {
 	
 	public void drawTank(Graphics2D g2d){
 		switch (orient) {
-		case Commons.UP:
+		case CommonsTank.UP:
 			g2d.drawImage(UpImg, x, y, null);
 			break;
-		case Commons.DOWN:
+		case CommonsTank.DOWN:
 			g2d.drawImage(downImg, x, y, null);
 			break;
-		case Commons.LEFT:
+		case CommonsTank.LEFT:
 			g2d.drawImage(leftImg, x, y, null);
 			break;
-		case Commons.RIGHT:
+		case CommonsTank.RIGHT:
 			g2d.drawImage(rightImg, x, y, null);
 			break;
 		default:
@@ -72,16 +72,16 @@ public abstract class Tank {
 	public void move(int new_orient){
 		if (checkMove(new_orient)){
 			switch (new_orient) {
-			case Commons.UP:
+			case CommonsTank.UP:
 				this.y-=2;
 				break;
-			case Commons.DOWN:
+			case CommonsTank.DOWN:
 				this.y+=2;
 				break;
-			case Commons.LEFT:
+			case CommonsTank.LEFT:
 				this.x-=2;
 				break;
-			case Commons.RIGHT:
+			case CommonsTank.RIGHT:
 				this.x+=2;
 				break;
 			default:
@@ -94,7 +94,7 @@ public abstract class Tank {
 	private boolean checkMove(int new_orient){
 		int type = 0;
 		switch (new_orient) {
-		case Commons.UP:
+		case CommonsTank.UP:
 			if (!allowMoveUp) {
 				return false;
 			}
@@ -105,7 +105,7 @@ public abstract class Tank {
 				}
 			}
 			break;
-		case Commons.DOWN:
+		case CommonsTank.DOWN:
 			if (!allowMoveDown) {//--------------------------------
 				return false;
 			}
@@ -116,7 +116,7 @@ public abstract class Tank {
 				}
 			}
 			break;
-		case Commons.LEFT:
+		case CommonsTank.LEFT:
 			if (!allowMoveLeft) {//--------------------------------
 				return false;
 			}
@@ -127,7 +127,7 @@ public abstract class Tank {
 				}
 			}
 			break;
-		case Commons.RIGHT:
+		case CommonsTank.RIGHT:
 			if (!allowMoveRight) {//--------------------------------
 				return false;
 			}

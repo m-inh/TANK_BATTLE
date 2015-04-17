@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.t3h.boom.Boom;
 import com.t3h.boom.BoomManager;
-import com.t3h.boom.Commons_Boom;
+import com.t3h.boom.CommonsBoom;
 import com.t3h.bullet.BulletManager;
 import com.t3h.graphics.Map;
 
@@ -58,9 +58,9 @@ public class EnemyTankManager {
 				tankX = enemyTankMgr.get(j).getX();
 				tankY = enemyTankMgr.get(j).getY();
 				bulletType = bulletMgr.getBullet(i).getType();
-				if (bulletX >= tankX && bulletX <= tankX+32 && bulletY >= tankY && bulletY <= tankY+32 && bulletType == Commons.BULLET_TYPE_PLAYER){
+				if (bulletX >= tankX && bulletX <= tankX+32 && bulletY >= tankY && bulletY <= tankY+32 && bulletType == CommonsTank.BULLET_TYPE_PLAYER){
 					// neu vi tri cua dan == vi tri cua tank -> remove tank + remove bullet + boom
-					Boom boom = new Boom(tankX + 16, tankY + 16, Commons_Boom.EXPLOSION_TANK_TYPE);
+					Boom boom = new Boom(tankX + 16, tankY + 16, CommonsBoom.EXPLOSION_TANK_TYPE);
 					boomMgr.addBoom(boom);
 					enemyTankMgr.remove(j);
 					EnemyTank.sound.playExplosionTank();//--------------------------------------------------
