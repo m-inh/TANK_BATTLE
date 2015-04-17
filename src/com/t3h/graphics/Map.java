@@ -52,7 +52,6 @@ public class Map {
 						break;
 					}
 					case Commons.RIM:{
-						System.out.println("rim");
 						g2d.drawImage(Commons.rim, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}

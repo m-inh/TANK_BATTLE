@@ -92,70 +92,56 @@ public abstract class Tank {
 	}
 	
 	private boolean checkMove(int new_orient){
-		int type1 = 0;
-		int type2 = 0;
+		int type = 0;
 		switch (new_orient) {
-		case 1:
-			if (!allowMoveUp) {//--------------------------------
+		case Commons.UP:
+			if (!allowMoveUp) {
 				return false;
 			}
-			type1 = map.getType(x, y-2);
-			type2 = map.getType(x+32, y-2);
-//			for (int i = 0; i < 32; i+=sizeComponent) {
-//				type2 = map.getType(x+i, y-2);	
-//				if (type2 != 0){
-//					return false;
-//				}
-//			}
+			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
+				type = map.getType(x+i, y-2);	
+				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+					return false;
+				}
+			}
 			break;
-		case 2:
+		case Commons.DOWN:
 			if (!allowMoveDown) {//--------------------------------
 				return false;
 			}
-			type1 = map.getType(x, y + 2 + 32);
-			type2 = map.getType(x + 32, y + 2 + 32);
-//			for (int i = 0; i < 32; i++) {
-//				type2 = map.getType(x + i, y + 2 + 32);
-//				if (type2 != 0){
-//					return false;
-//				}
-//			}
+			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
+				type = map.getType(x + i, y + 2 + 32);
+				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+					return false;
+				}
+			}
 			break;
-		case 3:
+		case Commons.LEFT:
 			if (!allowMoveLeft) {//--------------------------------
 				return false;
 			}
-			type1 = map.getType(x - 2, y);
-			type2 = map.getType(x - 2, y + 32);
-//			for (int i = 0; i < 32; i++) {
-//				type2 = map.getType(x - 2, y + i);
-//				if (type2 != 0){
-//					return false;
-//				}
-//			}
+			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
+				type = map.getType(x - 2, y + i);
+				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+					return false;
+				}
+			}
 			break;
-		case 4:
+		case Commons.RIGHT:
 			if (!allowMoveRight) {//--------------------------------
 				return false;
 			}
-			type1 = map.getType(x + 2 + 32, y);
-			type2 = map.getType(x + 2 + 32, y + 32);
-//			for (int i = 0; i < 32; i++) {
-//				type2 = map.getType(x + 2 + 32, y + i);
-//				if (type2 != 0){
-//					return false;
-//				}
-//			}
+			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
+				type = map.getType(x + 2 + 32, y + i);
+				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+					return false;
+				}
+			}
 			break;
 		default:
 			break;
 		}
-		if ((type1 == 0 && type2 == 0) || (type1 == 5 && type2 == 5) || (type1==0&&type2==5)||(type1==5&&type2==0)){//----------------------------------------------
-//		if (type2 == 0){
-//			System.out.println(x + " " + y);
-			return true;
-		}
-		return false;
+		return true;
 	}
 	
 	public static final int space = 3;
