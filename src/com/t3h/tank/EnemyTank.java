@@ -2,8 +2,6 @@ package com.t3h.tank;
 
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
 import com.t3h.bullet.Bullet;
 import com.t3h.bullet.BulletManager;
 
@@ -12,7 +10,7 @@ public class EnemyTank extends Tank{
 
 	public EnemyTank(int x, int y, int orient, int speed) {
 		super(x, y, orient, speed);
-		setHealth(commons.HEALTH_ENEMY_TANK);
+		setHealth(Commons.HEALTH_ENEMY_TANK);
 		setImage();
 		
 		random = new Random();
@@ -20,10 +18,10 @@ public class EnemyTank extends Tank{
 
 	@Override
 	public void setImage() {
-		UpImg = commons.UP_ENEMY_TANK;
-		downImg = commons.DOWN_ENEMY_TANK;
-		leftImg = commons.LEFT_ENEMY_TANK;
-		rightImg = commons.RIGHT_ENEMY_TANK;
+		UpImg 		= Commons.UP_ENEMY_TANK;
+		downImg		= Commons.DOWN_ENEMY_TANK;
+		leftImg		= Commons.LEFT_ENEMY_TANK;
+		rightImg	= Commons.RIGHT_ENEMY_TANK;
 	}
 	
 	public void auto(int count, BulletManager bulletMgr){

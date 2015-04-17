@@ -8,7 +8,6 @@ import com.t3h.boom.BoomManager;
 import com.t3h.boom.Commons_Boom;
 import com.t3h.bullet.BulletManager;
 import com.t3h.graphics.Map;
-import com.t3h.graphics.Sound;
 
 public class EnemyTankManager {
 	private ArrayList<EnemyTank> enemyTankMgr;

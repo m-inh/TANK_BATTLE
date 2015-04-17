@@ -3,8 +3,6 @@ package com.t3h.bullet;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
-
 public class Bullet {
 	private Commons commons;
 	private int x, y;

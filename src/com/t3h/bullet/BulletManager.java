@@ -55,22 +55,23 @@ public class BulletManager {
 			return true;
 		}
 		switch (map.getType(bullet.getX(), bullet.getY())) {
-			case 0:
-			case 5://--------------------------------------------------
+			case Commons.NONE:
+			case Commons.TREE:
+			case Commons.WATER:
 				return false;
-			case 1:{
-				map.setMatrix(bullet.getX(), bullet.getY(), 3);
+			case Commons.BRICK1:{
+				map.setMatrix(bullet.getX(), bullet.getY(), Commons.BRICK2);
 				break;
 			}
-			case 2:{
+			case Commons.STONE:{
 				break;
 			}
-			case 3:{
-				map.setMatrix(bullet.getX(), bullet.getY(), 0);
+			case Commons.BRICK2:{
+				map.setMatrix(bullet.getX(), bullet.getY(), Commons.NONE);
 				break;
 			}
 			default:{
-				map.setMatrix(bullet.getX(), bullet.getY(), 0);
+				map.setMatrix(bullet.getX(), bullet.getY(), Commons.NONE);
 				break;
 			}
 		}

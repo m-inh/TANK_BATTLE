@@ -54,7 +54,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		Commons c = new Commons();
 		bground = c.getImage("/RESOURCE/Image/bg_contai_panel.png");
 
-		mapNumber = 1;
+		mapNumber = 3;
 		setMap(mapNumber);
 		setTankPosition(mapNumber);
 		boomMgr = new BoomManager();
@@ -125,6 +125,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		g2d = (Graphics2D)g;
 		
 		g2d.drawImage(bground, 0, 0, 700, 700, null);
+		map.drawUnderComponent(g2d);
 		bulletMgr.drawAllBullet(g2d);
 		playerTank.drawTank(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
@@ -142,32 +143,11 @@ public class PlayPanel extends JPanel implements Runnable{
 	
 	long lastShoot = System.currentTimeMillis();//-----------------------------
 	long threshold = 300;//----------------------------------------------------
-	boolean upPressed = false;
-	boolean downPressed = false;
-	boolean leftPressed = false;
-	boolean rightPressed = false;
+	
 	private KeyAdapter moveAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
-//			JOptionPane.showMessageDialog(null, "ok");
-			playerTank.checkImpact(enemyTankMgr);
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-//				playerTank.move(4);
-				rightPressed = false;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_LEFT){
-//				playerTank.move(3);
-				leftPressed = false;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_UP){
-//				playerTank.move(1);
-				upPressed = false;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_DOWN){
-//				playerTank.move(2);
-				downPressed = false;
-			}
-			
+			playerTank.releaseKey(e);
 			if (e.getKeyCode() == KeyEvent.VK_SPACE){
 				long now = System.currentTimeMillis();
 				if (now - lastShoot > threshold){
@@ -178,31 +158,11 @@ public class PlayPanel extends JPanel implements Runnable{
 			}
 			repaint();
 		}
-		long lastUp = System.currentTimeMillis();//-----------------------------
-		long timeUp = 300;//----------------------------------------------------
+		
 		@Override
 		public void keyPressed(KeyEvent e) {
 			playerTank.checkImpact(enemyTankMgr);
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-//				playerTank.move(4);//--------------------------------- Nen thay la switch
-//				Tank.sound.playMove();
-				rightPressed = true;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_LEFT){
-//				playerTank.move(3);//--------------------------------------------------
-//				Tank.sound.playMove();
-				leftPressed = true;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_UP){
-//				playerTank.move(1);//--------------------------------------------------
-//				Tank.sound.playMove();
-				upPressed = true;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_DOWN){
-//				playerTank.move(2);//--------------------------------------------------
-//				Tank.sound.playMove();
-				downPressed = true;
-			}
+			playerTank.pressKey(e);
 			repaint();
 		}
 	};
@@ -238,18 +198,7 @@ public class PlayPanel extends JPanel implements Runnable{
 			enemyTankMgr.checkAllEnemyTank(bulletMgr);
 			playerTank.checkImpact(enemyTankMgr);//--------------------------
 			//-----------------------
-			if (upPressed){
-				playerTank.move(1);
-			}
-			if (downPressed){
-				playerTank.move(2);
-			}
-			if (leftPressed){
-				playerTank.move(3);
-			}
-			if (rightPressed){
-				playerTank.move(4);
-			}
+			playerTank.control();
 			//-----------------------
 			playerTank.resetImpact();
 			enemyTankMgr.resetImpact();
@@ -263,7 +212,7 @@ public class PlayPanel extends JPanel implements Runnable{
 			repaint();
 			if (count > 10000) count = 0;
 			try {
-				Thread.sleep(1);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

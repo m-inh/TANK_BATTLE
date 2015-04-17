@@ -5,10 +5,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Commons {
-	public static final int UP_ORIENT = 1;
-	public static final int DOWN_ORIENT = 2;
-	public static final int LEFT_ORIENT = 3;
-	public static final int RIGHT_ORIENT = 4;
+	public static final int UP_ORIENT 		= 1;
+	public static final int DOWN_ORIENT		= 2;
+	public static final int LEFT_ORIENT		= 3;
+	public static final int RIGHT_ORIENT	= 4;
+	public static final int UP			= 1;
+	public static final int DOWN		= 2;
+	public static final int LEFT		= 3;
+	public static final int RIGHT		= 4;
 	
 	public static Image UP_PLAYER_TANK;
 	public static Image DOWN_PLAYER_TANK;

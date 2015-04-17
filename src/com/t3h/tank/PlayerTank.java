@@ -1,21 +1,27 @@
 package com.t3h.tank;
 
+import java.awt.event.KeyEvent;
+
 import com.t3h.bullet.BulletManager;
 
 public class PlayerTank extends Tank{
+	private boolean upPressed 		= false;
+	private boolean downPressed 	= false;
+	private boolean leftPressed 	= false;
+	private boolean rightPressed 	= false;
 
 	public PlayerTank(int x, int y, int orient, int speed) {
 		super(x, y, orient, speed);
-		setHealth(commons.HEALTH_PLAYER_TANK);
+		setHealth(Commons.HEALTH_PLAYER_TANK);
 		setImage();
 	}
 
 	@Override
 	public void setImage() {
-		UpImg = commons.UP_PLAYER_TANK;
-		downImg = commons.DOWN_PLAYER_TANK;
-		leftImg = commons.LEFT_PLAYER_TANK;
-		rightImg = commons.RIGHT_PLAYER_TANK;
+		UpImg 		= Commons.UP_PLAYER_TANK;
+		downImg		= Commons.DOWN_PLAYER_TANK;
+		leftImg		= Commons.LEFT_PLAYER_TANK;
+		rightImg	= Commons.RIGHT_PLAYER_TANK;
 	}
 	
 	public boolean checkPlayerTank(BulletManager bulletMgr){
@@ -40,6 +46,55 @@ public class PlayerTank extends Tank{
 			this.checkDown(enemyTankMgr.getEnemyTank(i));
 			this.checkLeft(enemyTankMgr.getEnemyTank(i));
 			this.checkRight(enemyTankMgr.getEnemyTank(i));
+		}
+	}
+	
+	public void releaseKey(KeyEvent e){
+		switch(e.getKeyCode()){
+			case KeyEvent.VK_RIGHT:{
+				rightPressed = false;		break;
+			}
+			case KeyEvent.VK_LEFT:{
+				leftPressed = false;		break;
+			}
+			case KeyEvent.VK_UP:{
+				upPressed = false;			break;
+			}
+			case KeyEvent.VK_DOWN:{
+				downPressed = false;		break;
+			}
+		}
+	}
+	
+	public void pressKey(KeyEvent e){
+		switch(e.getKeyCode()){
+		case KeyEvent.VK_RIGHT:{
+			rightPressed = true;		break;
+		}
+		case KeyEvent.VK_LEFT:{
+			leftPressed = true;			break;
+		}
+		case KeyEvent.VK_UP:{
+			upPressed = true;			break;
+		}
+		case KeyEvent.VK_DOWN:{
+			downPressed = true;			break;
+		}
+		}
+	}
+	
+	public void control(){
+		if (upPressed){
+			move(Commons.UP);
+		}
+		if (downPressed){
+			move(Commons.DOWN);
+		}
+		if (leftPressed){
+			move(Commons.LEFT);
+		}
+		if (rightPressed){
+			move(Commons.RIGHT);
 		}
 	}
 

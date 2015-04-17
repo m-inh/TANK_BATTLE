@@ -1,7 +1,6 @@
 package com.t3h.graphics;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,18 +8,14 @@ import java.io.RandomAccessFile;
 
 import javax.swing.JOptionPane;
 
-public class Map {
-	private int type; // 0 1 2 3 4 
-	
+public class Map {	
 	private File file;
 	private RandomAccessFile rdf;
 	
 	private int matrix[][];
 	
 	Commons common = new Commons();
-	public Map(int type) {
-		this.type = type;
-		
+	public Map(int type) {		
 		createMatrix();
 		String tempFilePath = getClass().getResource("/RESOURCE/Map").toString();
 		String pathMap = tempFilePath.substring(6) + "/map" + type;
@@ -33,28 +28,45 @@ public class Map {
 	public void drawMap(Graphics2D g2d){
 		drawComponent(g2d);
 	}
+	public void drawUnderComponent(Graphics2D g2d){
+		int type;
+		for (int i=1; i<Commons.sizeMap-1; i++){
+			for (int j=1; j<Commons.sizeMap-1; j++){
+				type = matrix[i][j];
+				switch(type){
+					case Commons.WATER:{
+						g2d.drawImage(Commons.water, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT,null);
+						break;
+					}
+					default:{
+						break;
+					}
+				}
+			}
+		}
+	}
 	private void drawComponent(Graphics2D g2d){
 		int type;
 		for (int i=1; i<Commons.sizeMap-1; i++){
 			for (int j=1; j<Commons.sizeMap-1; j++){
 				type = matrix[i][j];
 				switch(type){
-					case 0:{
+					case Commons.NONE:{
 						break;
 					}
-					case 1:{
+					case Commons.BRICK1:{
 						g2d.drawImage(Commons.brick1, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
-					case 2:{
+					case Commons.STONE:{
 						g2d.drawImage(Commons.stone, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
-					case 3:{
+					case Commons.BRICK2:{
 						g2d.drawImage(Commons.brick2, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
-					case 5:{
+					case Commons.TREE:{
 						g2d.drawImage(Commons.tree, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT,null);
 						break;
 					}

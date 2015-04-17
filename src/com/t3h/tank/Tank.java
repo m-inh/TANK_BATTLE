@@ -51,16 +51,16 @@ public abstract class Tank {
 	
 	public void drawTank(Graphics2D g2d){
 		switch (orient) {
-		case 1:
+		case Commons.UP:
 			g2d.drawImage(UpImg, x, y, null);
 			break;
-		case 2:
+		case Commons.DOWN:
 			g2d.drawImage(downImg, x, y, null);
 			break;
-		case 3:
+		case Commons.LEFT:
 			g2d.drawImage(leftImg, x, y, null);
 			break;
-		case 4:
+		case Commons.RIGHT:
 			g2d.drawImage(rightImg, x, y, null);
 			break;
 		default:
@@ -72,16 +72,16 @@ public abstract class Tank {
 	public void move(int new_orient){
 		if (checkMove(new_orient)){
 			switch (new_orient) {
-			case 1:
+			case Commons.UP:
 				this.y-=2;
 				break;
-			case 2:
+			case Commons.DOWN:
 				this.y+=2;
 				break;
-			case 3:
+			case Commons.LEFT:
 				this.x-=2;
 				break;
-			case 4:
+			case Commons.RIGHT:
 				this.x+=2;
 				break;
 			default:
