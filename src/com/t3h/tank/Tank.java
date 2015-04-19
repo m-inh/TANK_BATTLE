@@ -12,7 +12,7 @@ import com.t3h.graphics.Map;
 import com.t3h.graphics.Sound;
 
 public abstract class Tank {
-	public static Sound sound = new Sound();//--------------------------------------------------
+	public static Sound sound = new Sound();
 	protected int x, y;
 	protected CommonsTank commons;
 	private int orient;
@@ -152,20 +152,20 @@ public abstract class Tank {
 	}
 	
 	public static final int space = 3;
-	public void checkUp(Tank tank){//----------------------------------------------
+	public void checkUp(Tank tank){
 		if (this.y-space<=tank.getY()+CommonsTank.SIZE && (y+CommonsTank.SIZE>tank.getY() )&& this.y+space>=tank.getY()+CommonsTank.SIZE &&  tank.getX()+space>=this.x-CommonsTank.SIZE && tank.getX()-space<=this.x+CommonsTank.SIZE){
 			allowMoveUp = false;
 		}
 	}
-	public void checkDown(Tank tank){//----------------------------------------------
+	public void checkDown(Tank tank){
 		if (this.y+space+CommonsTank.SIZE>=tank.getY() &&(y<tank.getY()+CommonsTank.SIZE )&& this.y-space+CommonsTank.SIZE<=tank.getY() &&  tank.getX()+space>=this.x-CommonsTank.SIZE && tank.getX()-space<=this.x+CommonsTank.SIZE){
 			allowMoveDown = false;
 		}
 	}
-	public void checkLeft(Tank tank){//----------------------------------------------
+	public void checkLeft(Tank tank){
 		if (this.x-space<=tank.getX()+CommonsTank.SIZE && this.x+space>=tank.getX()+CommonsTank.SIZE &&  tank.getY()+space>=this.y-CommonsTank.SIZE && tank.getY()-space<=this.y+CommonsTank.SIZE) allowMoveLeft = false;
 	}
-	public void checkRight(Tank tank){//----------------------------------------------
+	public void checkRight(Tank tank){
 		if (this.x+space+CommonsTank.SIZE>=tank.getX() && this.x-space+CommonsTank.SIZE<=tank.getX() &&  tank.getY()+space>=this.y-CommonsTank.SIZE && tank.getY()-space<=this.y+CommonsTank.SIZE) allowMoveRight = false;
 	}
 	public void resetImpact(){

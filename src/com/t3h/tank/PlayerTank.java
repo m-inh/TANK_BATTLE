@@ -4,6 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 
+import com.t3h.boom.Boom;
+import com.t3h.boom.BoomManager;
+import com.t3h.boom.CommonsBoom;
 import com.t3h.bullet.BulletManager;
 
 public class PlayerTank extends Tank{
@@ -51,6 +54,9 @@ public class PlayerTank extends Tank{
 			typeTankEnemy = bulletMgr.getBullet(i).getType();
 			if ((getX() <= bulletEnemyX && getX()+CommonsTank.SIZE >= bulletEnemyX) && (getY() <= bulletEnemyY && getY()+CommonsTank.SIZE >= bulletEnemyY) && typeTankEnemy==CommonsTank.BULLET_TYPE_ENEMY) {
 				bulletMgr.removeBullet(i);
+				Tank.sound.playExplosionTank();
+				Boom boom = new Boom(x + CommonsTank.SIZE/2, y + CommonsTank.SIZE/2, CommonsBoom.EXPLOSION_TANK_TYPE);
+				boomMgr.addBoom(boom);
 				setHealth(getHealth()-1);
 				if (getHealth()<=0) return true;
 			}
@@ -126,6 +132,9 @@ public class PlayerTank extends Tank{
 	}
 	public void unlockKey(){
 		lockKey = false;
+	}
+	public void setBoomMgr(BoomManager boomMgr) {
+		this.boomMgr = boomMgr;
 	}
 }
       

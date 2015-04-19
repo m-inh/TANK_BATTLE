@@ -52,28 +52,14 @@ public class PlayPanel extends JPanel implements Runnable{
 	
 	public void loadData(){
 		playing = true;
-//		setMap(mapNumber);
-//		
-//		boomMgr = new BoomManager();
-//		bulletMgr = new BulletManager();
-//		bulletMgr.setMap(this.map);
-//		bulletMgr.setBoomMgr(boomMgr);
-//		
-//		playerTank = new PlayerTank(250, 630, 1, 1);
-//		playerTank.setMap(map);
-//		
-//		enemyTankMgr = new EnemyTankManager();
-//		setTankPosition(mapNumber);
-//		enemyTankMgr.setMap(map);
-//		enemyTankMgr.setBoomMgr(boomMgr);
-		
 		setMap(mapNumber);
 		boomMgr = new BoomManager();
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
 		bulletMgr.setBoomMgr(boomMgr);
-		playerTank = new PlayerTank(250, 630, 1, 5);
+		playerTank = new PlayerTank(250, 630, 1, 3);
 		playerTank.setMap(map);
+		playerTank.setBoomMgr(boomMgr);
 		enemyTankMgr = new EnemyTankManager();
 		enemyTankMgr.setMap(map);
 		enemyTankMgr.setBoomMgr(boomMgr);

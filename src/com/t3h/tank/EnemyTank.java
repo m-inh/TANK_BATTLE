@@ -57,24 +57,24 @@ public class EnemyTank extends Tank{
 
 	public boolean autoCatch(Tank tank){
 		int quarter = CommonsTank.SIZE/4;
-		int oldOrient = getOrient();
+		boolean sos = false;
 		if (tank.getX()>=x-quarter && tank.getX()<=x+quarter){
 			if (tank.getY()<y && tank.getY()>y-CommonsTank.RADA){
-				setOrient(CommonsTank.UP);
+				setOrient(CommonsTank.UP);		sos = true;
 			}
 			else if (tank.getY()>y && tank.getY()<y+CommonsTank.RADA){
-				setOrient(CommonsTank.DOWN);
+				setOrient(CommonsTank.DOWN);	sos = true;
 			}
 		}
 		else if (tank.getY()>=y-quarter && tank.getY()<=y+quarter){
 			if (tank.getX()<x && tank.getX()>x-CommonsTank.RADA){
-				setOrient(CommonsTank.LEFT);
+				setOrient(CommonsTank.LEFT);	sos = true;
 			}
 			else if (tank.getX()>x && tank.getX()<x+CommonsTank.RADA){
-				setOrient(CommonsTank.RIGHT);
+				setOrient(CommonsTank.RIGHT);	sos = true;
 			}
 		}
-		if (oldOrient!=getOrient()){
+		if (sos){
 			move(getOrient());
 			return true;
 		}
