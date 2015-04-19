@@ -57,7 +57,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
 		bulletMgr.setBoomMgr(boomMgr);
-		playerTank = new PlayerTank(250, 630, 1, 3);
+		playerTank = new PlayerTank(250, 630, 1, 40);
 		playerTank.setMap(map);
 		playerTank.setBoomMgr(boomMgr);
 		enemyTankMgr = new EnemyTankManager();
@@ -146,7 +146,7 @@ public class PlayPanel extends JPanel implements Runnable{
 			if (playing && e.getKeyCode() == KeyEvent.VK_SPACE){
 				long now = System.currentTimeMillis();
 				if (now - lastShoot > threshold){
-					bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 1, playerTank.getOrient()));
+					bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 10, playerTank.getOrient()));
 					Tank.sound.playShoot();
 					lastShoot = now;
 			     }
@@ -173,9 +173,8 @@ public class PlayPanel extends JPanel implements Runnable{
 				}
 				else loadData();
 			}
-			bulletMgr.moveAllBullet();
 			if (enemyTankMgr.getSize() < 5 && enemyTankMgr.getTotalTank() < 10){
-				EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 5);
+				EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 50);
 				enemyTankMgr.addEnemyTank(enemyTank);
 			}
 			if (count%enemyTankMgr.getEnemyTank(0).getSpeed() == 0){
@@ -194,16 +193,18 @@ public class PlayPanel extends JPanel implements Runnable{
 				boomMgr.addBoom(boom);
 				Tank.sound.playExplosionTank();
 				if (playerTank.getHealth()<=0){
-					playing = false;
-					System.out.println("Thua cmnr");
-					playerTank.lockKey();
+//					playing = false;
+//					System.out.println("Thua cmnr");
+//					playerTank.lockKey();
 				}
 			}
+			if (count%Bullet.speed==0)	bulletMgr.moveAllBullet();
+			
 			count++;
 			repaint();
 			if (count > 1000000) count = 0;
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

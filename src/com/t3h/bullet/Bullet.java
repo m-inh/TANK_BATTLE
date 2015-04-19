@@ -9,7 +9,7 @@ public class Bullet {
 	private Image img;
 	private int type;
 	private int strong;
-	private int speed;
+	public static int speed = 10;
 	private int orient;
 	private int size;
 	
@@ -19,7 +19,7 @@ public class Bullet {
 		this.y = y;
 		this.type = type;
 		this.orient = orient;
-		this.speed = speed;
+//		this.speed = speed;
 		this.strong = strong;
 		this.img = CommonsBullet.BULLET;
 		this.size = CommonsBullet.SIZE_BULLET;
@@ -73,6 +73,10 @@ public class Bullet {
 	
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+	
+	public int getSpeed(){
+		return speed;
 	}
 	
 	public int getX() {
