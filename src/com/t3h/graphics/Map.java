@@ -27,10 +27,26 @@ public class Map {
 	
 	public void drawUnderComponent(Graphics2D g2d){// Ve truong hop co nuoc
 		int type;
-		for (int i=1; i<Commons.sizeMap-1; i++){
-			for (int j=1; j<Commons.sizeMap-1; j++){
+		for (int i=0; i<Commons.sizeMap; i++){
+			for (int j=0; j<Commons.sizeMap; j++){
 				type = matrix[i][j];
 				switch(type){
+					case Commons.RIM:{
+						g2d.drawImage(Commons.rim, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						break;
+					}
+					case Commons.BRICK1:{
+						g2d.drawImage(Commons.brick1, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						break;
+					}
+					case Commons.STONE:{
+						g2d.drawImage(Commons.stone, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						break;
+					}
+					case Commons.BRICK2:{
+						g2d.drawImage(Commons.brick2, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
+						break;
+					}
 					case Commons.WATER:{
 						g2d.drawImage(Commons.water, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT,null);
 						break;
@@ -44,28 +60,11 @@ public class Map {
 	}
 	public void drawComponent(Graphics2D g2d){
 		int type;
-		for (int i=0; i<Commons.sizeMap; i++){
-			for (int j=0; j<Commons.sizeMap; j++){
+		for (int i=1; i<Commons.sizeMap-1; i++){
+			for (int j=1; j<Commons.sizeMap-1; j++){
 				type = matrix[i][j];
 				switch(type){
 					case Commons.NONE:{
-						break;
-					}
-					case Commons.RIM:{
-						g2d.drawImage(Commons.rim, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
-						break;
-					}
-					case Commons.BRICK1:{
-						System.out.println("Brick");
-						g2d.drawImage(Commons.brick1, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
-						break;
-					}
-					case Commons.STONE:{
-						g2d.drawImage(Commons.stone, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
-						break;
-					}
-					case Commons.BRICK2:{
-						g2d.drawImage(Commons.brick2, i*Commons.SIZE_COMPONENT, j*Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, Commons.SIZE_COMPONENT, null);
 						break;
 					}
 					case Commons.TREE:{
@@ -101,8 +100,7 @@ public class Map {
 		try {
 			return rdf.getFilePointer();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Không thể đọc File");
 		}
 		return 0;
 	}
@@ -110,8 +108,7 @@ public class Map {
 		try {
 			return rdf.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Không thể đọc File");
 		}
 		return "";
 	}
@@ -134,11 +131,10 @@ public class Map {
 	private void createMatrix(){
 		matrix = new int [Commons.sizeMap][Commons.sizeMap];
 		for (int i = 0; i < Commons.sizeMap; i++) {
-			matrix[0][i]
-						= matrix[i][0]
-						= matrix[Commons.sizeMap - 1][i]
-						= matrix[i][Commons.sizeMap - 1]
-						= Commons.RIM;
+			matrix[0][i]	= matrix[i][0]
+							= matrix[Commons.sizeMap - 1][i]
+							= matrix[i][Commons.sizeMap - 1]
+							= Commons.RIM;
 		}
 	}
 	

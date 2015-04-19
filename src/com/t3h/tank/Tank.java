@@ -40,7 +40,7 @@ public abstract class Tank {
 		this.y = y;
 		this.speed = speed;
 		this.orient = orient;
-		this.health = 25;
+		this.health = CommonsTank.HEALTH_TANK;
 	}
 	
 	public void setMap(Map map){
@@ -51,23 +51,30 @@ public abstract class Tank {
 	
 	public void drawTank(Graphics2D g2d){
 		switch (orient) {
-		case CommonsTank.UP:
-			g2d.drawImage(UpImg, x, y, null);
-			break;
-		case CommonsTank.DOWN:
-			g2d.drawImage(downImg, x, y, null);
-			break;
-		case CommonsTank.LEFT:
-			g2d.drawImage(leftImg, x, y, null);
-			break;
-		case CommonsTank.RIGHT:
-			g2d.drawImage(rightImg, x, y, null);
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "Orient not found!");
-			break;
+			case CommonsTank.UP:{
+				g2d.drawImage(UpImg, x, y, CommonsTank.SIZE, CommonsTank.SIZE, null);
+				break;
+			}
+			case CommonsTank.DOWN:{
+				g2d.drawImage(downImg, x, y, CommonsTank.SIZE, CommonsTank.SIZE, null);
+				break;
+			}
+			case CommonsTank.LEFT:{
+				g2d.drawImage(leftImg, x, y, CommonsTank.SIZE, CommonsTank.SIZE, null);
+				break;
+			}
+			case CommonsTank.RIGHT:{
+				g2d.drawImage(rightImg, x, y, CommonsTank.SIZE, CommonsTank.SIZE, null);
+				break;
+			}
+			default:{
+				JOptionPane.showMessageDialog(null, "Orient not found!");
+				break;
+			}
 		}
+		drawHealth(g2d, x, y-5);
 	}
+	abstract protected void drawHealth(Graphics2D g2d, int x, int y);
 	
 	public void move(int new_orient){
 		if (checkMove(new_orient)){
@@ -91,75 +98,75 @@ public abstract class Tank {
 		this.orient = new_orient;
 	}
 	
-	private boolean checkMove(int new_orient){
+	protected boolean checkMove(int new_orient){
 		int type = 0;
 		switch (new_orient) {
-		case CommonsTank.UP:
-			if (!allowMoveUp) {
-				return false;
-			}
-			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
-				type = map.getType(x+i, y-2);	
-				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+			case CommonsTank.UP:
+				if (!allowMoveUp) {
 					return false;
 				}
-			}
-			break;
-		case CommonsTank.DOWN:
-			if (!allowMoveDown) {//--------------------------------
-				return false;
-			}
-			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
-				type = map.getType(x + i, y + 2 + 32);
-				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+				for (int i = 0; i < CommonsTank.SIZE; i++) {
+					type = map.getType(x+i, y-2);	
+					if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+						return false;
+					}
+				}
+				break;
+			case CommonsTank.DOWN:
+				if (!allowMoveDown) {
 					return false;
 				}
-			}
-			break;
-		case CommonsTank.LEFT:
-			if (!allowMoveLeft) {//--------------------------------
-				return false;
-			}
-			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
-				type = map.getType(x - 2, y + i);
-				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+				for (int i = 0; i < CommonsTank.SIZE; i++) {
+					type = map.getType(x + i, y + 2 + CommonsTank.SIZE);
+					if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+						return false;
+					}
+				}
+				break;
+			case CommonsTank.LEFT:
+				if (!allowMoveLeft) {
 					return false;
 				}
-			}
-			break;
-		case CommonsTank.RIGHT:
-			if (!allowMoveRight) {//--------------------------------
-				return false;
-			}
-			for (int i = 0; i < 32; i+=com.t3h.graphics.Commons.SIZE_COMPONENT) {
-				type = map.getType(x + 2 + 32, y + i);
-				if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+				for (int i = 0; i < CommonsTank.SIZE; i++) {
+					type = map.getType(x - 2, y + i);
+					if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+						return false;
+					}
+				}
+				break;
+			case CommonsTank.RIGHT:
+				if (!allowMoveRight) {
 					return false;
 				}
-			}
-			break;
-		default:
-			break;
+				for (int i = 0; i < CommonsTank.SIZE; i++) {
+					type = map.getType(x + 2 + CommonsTank.SIZE, y + i);
+					if (type != com.t3h.graphics.Commons.NONE && type!=com.t3h.graphics.Commons.TREE){
+						return false;
+					}
+				}
+				break;
+			default:
+				break;
 		}
 		return true;
 	}
 	
 	public static final int space = 3;
 	public void checkUp(Tank tank){//----------------------------------------------
-		if (this.y-space<=tank.getY()+32 && (y+32>tank.getY() )&& this.y+space>=tank.getY()+32 &&  tank.getX()+space>=this.x-32 && tank.getX()-space<=this.x+32){
+		if (this.y-space<=tank.getY()+CommonsTank.SIZE && (y+CommonsTank.SIZE>tank.getY() )&& this.y+space>=tank.getY()+CommonsTank.SIZE &&  tank.getX()+space>=this.x-CommonsTank.SIZE && tank.getX()-space<=this.x+CommonsTank.SIZE){
 			allowMoveUp = false;
 		}
 	}
 	public void checkDown(Tank tank){//----------------------------------------------
-		if (this.y+space+32>=tank.getY() &&(y<tank.getY()+32 )&& this.y-space+32<=tank.getY() &&  tank.getX()+space>=this.x-32 && tank.getX()-space<=this.x+32){
+		if (this.y+space+CommonsTank.SIZE>=tank.getY() &&(y<tank.getY()+CommonsTank.SIZE )&& this.y-space+CommonsTank.SIZE<=tank.getY() &&  tank.getX()+space>=this.x-CommonsTank.SIZE && tank.getX()-space<=this.x+CommonsTank.SIZE){
 			allowMoveDown = false;
 		}
 	}
 	public void checkLeft(Tank tank){//----------------------------------------------
-		if (this.x-space<=tank.getX()+32 && this.x+space>=tank.getX()+32 &&  tank.getY()+space>=this.y-32 && tank.getY()-space<=this.y+32) allowMoveLeft = false;
+		if (this.x-space<=tank.getX()+CommonsTank.SIZE && this.x+space>=tank.getX()+CommonsTank.SIZE &&  tank.getY()+space>=this.y-CommonsTank.SIZE && tank.getY()-space<=this.y+CommonsTank.SIZE) allowMoveLeft = false;
 	}
 	public void checkRight(Tank tank){//----------------------------------------------
-		if (this.x+space+32>=tank.getX() && this.x-space+32<=tank.getX() &&  tank.getY()+space>=this.y-32 && tank.getY()-space<=this.y+32) allowMoveRight = false;
+		if (this.x+space+CommonsTank.SIZE>=tank.getX() && this.x-space+CommonsTank.SIZE<=tank.getX() &&  tank.getY()+space>=this.y-CommonsTank.SIZE && tank.getY()-space<=this.y+CommonsTank.SIZE) allowMoveRight = false;
 	}
 	public void resetImpact(){
 		allowMoveUp = allowMoveLeft = allowMoveDown = allowMoveRight = true;

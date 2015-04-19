@@ -1,6 +1,7 @@
 package com.t3h.tank;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import com.t3h.boom.Boom;
@@ -15,6 +16,7 @@ public class EnemyTankManager {
 	private int totalTank;
 	private Map map;
 	private BoomManager boomMgr;
+	private Tank vitualPlayerTank;
 	
 	public EnemyTankManager() {
 		enemyTankMgr = new ArrayList<>();
@@ -32,12 +34,27 @@ public class EnemyTankManager {
 		totalTank++;
 	}
 	
-	public void AutoControlAllTank(int count, BulletManager bulletMgr){
+	public void AutoControlAllTank(int count, BulletManager bulletMgr, Tank tank){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
-			enemyTankMgr.get(i).auto(count, bulletMgr);
+			if (!enemyTankMgr.get(i).autoCatch(tank)) {
+				vitualPlayerTank = new Tank(enemyTankMgr.get(i).getX(), enemyTankMgr.get(i).getY(), 1, 1) {
+					@Override
+					public void setImage() {
+					}					
+					@Override
+					protected void drawHealth(Graphics2D g2d, int x, int y) {
+					}
+				};
+				enemyTankMgr.get(i).autoMove(count);
+				for (int j = 0; j < enemyTankMgr.size(); j++) {
+					if (i!=j && !enemyTankMgr.get(j).autoCatch(tank)) {
+						enemyTankMgr.get(j).autoFire(bulletMgr);
+					}
+				}
+			}
+			enemyTankMgr.get(i).autoFire(bulletMgr);
 		}
-	}
-	
+	}	
 	public void drawAllEnemyTank(Graphics2D g2d){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
 			enemyTankMgr.get(i).drawTank(g2d);
@@ -58,13 +75,16 @@ public class EnemyTankManager {
 				tankX = enemyTankMgr.get(j).getX();
 				tankY = enemyTankMgr.get(j).getY();
 				bulletType = bulletMgr.getBullet(i).getType();
-				if (bulletX >= tankX && bulletX <= tankX+32 && bulletY >= tankY && bulletY <= tankY+32 && bulletType == CommonsTank.BULLET_TYPE_PLAYER){
+				if (bulletX >= tankX && bulletX <= tankX+CommonsTank.SIZE && bulletY >= tankY && bulletY <= tankY+CommonsTank.SIZE && bulletType == CommonsTank.BULLET_TYPE_PLAYER){
 					// neu vi tri cua dan == vi tri cua tank -> remove tank + remove bullet + boom
 					Boom boom = new Boom(tankX + 16, tankY + 16, CommonsBoom.EXPLOSION_TANK_TYPE);
 					boomMgr.addBoom(boom);
-					enemyTankMgr.remove(j);
+					enemyTankMgr.get(j).setHealth(enemyTankMgr.get(j).getHealth()-1);	// Mất máu
+					if (enemyTankMgr.get(j).getHealth()<=0)	{
+						enemyTankMgr.remove(j);		// Nếu hết máu thì nổ Tank
+						tankDestroy++;
+					}
 					EnemyTank.sound.playExplosionTank();//--------------------------------------------------
-					tankDestroy++;
 					bulletMgr.removeBullet(i);
 					i--;
 					if (i < 0) {break;}
@@ -114,19 +134,3 @@ public class EnemyTankManager {
 		return totalTank;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,11 +4,9 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import com.t3h.graphics.Commons;
+
 public class CommonsTank {
-	public static final int UP_ORIENT 		= 1;
-	public static final int DOWN_ORIENT		= 2;
-	public static final int LEFT_ORIENT		= 3;
-	public static final int RIGHT_ORIENT	= 4;
 	public static final int UP			= 1;
 	public static final int DOWN		= 2;
 	public static final int LEFT		= 3;
@@ -24,9 +22,16 @@ public class CommonsTank {
 	public static Image LEFT_ENEMY_TANK;
 	public static Image RIGHT_ENEMY_TANK;
 	
-	public static final int HEALTH_TANK = 25; // 	default health for each tank
-	public static final int HEALTH_ENEMY_TANK = 25;
-	public static final int HEALTH_PLAYER_TANK = 150;
+	public static final int SIZE = 35;
+	
+	public static final int RADA = 5*Commons.SIZE_COMPONENT;
+	
+	public static Image HEALTH_FULL;	// Máu của Tank
+	public static Image HEALTH_LOSE;
+	
+	public static final int HEALTH_TANK = 2; // 	default health for each tank
+	public static final int HEALTH_ENEMY_TANK = 2;
+	public static final int HEALTH_PLAYER_TANK = 4;
 	
 	public static final int BULLET_TYPE_PLAYER = 1;
 	public static final int BULLET_TYPE_ENEMY = 2;
@@ -41,25 +46,12 @@ public class CommonsTank {
 		DOWN_ENEMY_TANK = getImage("/RESOURCE/Image/bossyellow_2.png");
 		LEFT_ENEMY_TANK = getImage("/RESOURCE/Image/bossyellow_3.png");
 		RIGHT_ENEMY_TANK = getImage("/RESOURCE/Image/bossyellow_4.png");
+		
+		HEALTH_FULL = getImage("/RESOURCE/Image/health_full.png");
+		HEALTH_LOSE = getImage("/RESOURCE/Image/health_lose.png");
 	}
 	
 	private Image getImage(String path){
 		return new ImageIcon(getClass().getResource(path)).getImage();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

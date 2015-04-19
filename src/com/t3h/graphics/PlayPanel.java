@@ -33,8 +33,9 @@ public class PlayPanel extends JPanel implements Runnable{
 	private BoomManager boomMgr;
 	private PlayerTank playerTank;
 	private EnemyTankManager enemyTankMgr;
-//	private Boom boom;
 	private Thread th;
+	
+	private boolean playing;
 	
 	public PlayPanel() {
 		setBounds(0, 0, Commons.WIDTH_PANEL, Commons.HEIGHT_PANEL);
@@ -43,28 +44,40 @@ public class PlayPanel extends JPanel implements Runnable{
 		addKeyListener(moveAdapter);
 		setFocusable(true);
 		addMouseListener(click);
+		mapNumber = 1;
 		loadData();
 		th = new Thread(this);
 		th.start();
 	}
 	
 	public void loadData(){
-		setMap(5);
-		Commons c = new Commons();
-
-		mapNumber = 3;
+		playing = true;
+//		setMap(mapNumber);
+//		
+//		boomMgr = new BoomManager();
+//		bulletMgr = new BulletManager();
+//		bulletMgr.setMap(this.map);
+//		bulletMgr.setBoomMgr(boomMgr);
+//		
+//		playerTank = new PlayerTank(250, 630, 1, 1);
+//		playerTank.setMap(map);
+//		
+//		enemyTankMgr = new EnemyTankManager();
+//		setTankPosition(mapNumber);
+//		enemyTankMgr.setMap(map);
+//		enemyTankMgr.setBoomMgr(boomMgr);
+		
 		setMap(mapNumber);
-		setTankPosition(mapNumber);
 		boomMgr = new BoomManager();
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
 		bulletMgr.setBoomMgr(boomMgr);
-		playerTank = new PlayerTank(250, 630, 1, 1);
+		playerTank = new PlayerTank(250, 630, 1, 5);
 		playerTank.setMap(map);
-		
 		enemyTankMgr = new EnemyTankManager();
 		enemyTankMgr.setMap(map);
 		enemyTankMgr.setBoomMgr(boomMgr);
+		setTankPosition(mapNumber);
 	}
 	
 	private void setMap(int mapNumber){
@@ -108,26 +121,26 @@ public class PlayPanel extends JPanel implements Runnable{
 			break;
 		}
 	}
-	
-	private boolean checkWin(){
-		if (enemyTankMgr.getTankDestroy() >= 10){
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
+		
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D)g;
-		
+	
 		map.drawUnderComponent(g2d);
 		bulletMgr.drawAllBullet(g2d);
-		playerTank.drawTank(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
+		playerTank.drawTank(g2d);
 		map.drawComponent(g2d);
 		boomMgr.exploredAllBoom(count, g2d);
+		
+		if (!playing) drawGameOver(g2d);
+	}
+	
+	private void drawGameOver(Graphics2D g2d){
+		Commons common = new Commons();
+		Image gameOver = common.getImage("/RESOURCE/Image/GameOver.png");
+		g2d.drawImage(gameOver, 200, 250, null);
 	}
 	
 	private MouseAdapter click = new MouseAdapter() {
@@ -138,18 +151,17 @@ public class PlayPanel extends JPanel implements Runnable{
 	};
 	
 	
-	long lastShoot = System.currentTimeMillis();//-----------------------------
-	long threshold = 300;//----------------------------------------------------
-	
+	private long lastShoot = System.currentTimeMillis();//-----------------------------
+	private long threshold = 300;//----------------------------------------------------
 	private KeyAdapter moveAdapter = new KeyAdapter() {
 		@Override
 		public void keyReleased(KeyEvent e) {
 			playerTank.releaseKey(e);
-			if (e.getKeyCode() == KeyEvent.VK_SPACE){
+			if (playing && e.getKeyCode() == KeyEvent.VK_SPACE){
 				long now = System.currentTimeMillis();
 				if (now - lastShoot > threshold){
 					bulletMgr.addBullet(new Bullet(playerTank.getX() + 13, playerTank.getY() + 13, 1, 1, 1, playerTank.getOrient()));
-					Tank.sound.playShoot();//--------------------------------------------------
+					Tank.sound.playShoot();
 					lastShoot = now;
 			     }
 			}
@@ -167,47 +179,43 @@ public class PlayPanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 		while (true){
-			bulletMgr.moveAllBullet();
-			if (enemyTankMgr.getSize() < 10 && enemyTankMgr.getTotalTank() < 20){
-				EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 1);
-				enemyTankMgr.addEnemyTank(enemyTank);
-			}
-//			System.out.println(enemyTankMgr.getTankDestroy());
-			if (enemyTankMgr.getTankDestroy() >= 20){
+			if (enemyTankMgr.getTankDestroy() >= 10){
 				JOptionPane.showMessageDialog(null, "Win cmnr!");
 				mapNumber++;
 				if (mapNumber > 5){
 					JOptionPane.showMessageDialog(null, "Win cmnr, bien cmm de!");
 				}
-				setMap(mapNumber);
-				bulletMgr = new BulletManager();
-				bulletMgr.setMap(this.map);
-				bulletMgr.setBoomMgr(boomMgr);
-				playerTank = new PlayerTank(250, 630, 1, 1);
-				playerTank.setMap(map);
-				enemyTankMgr = new EnemyTankManager();
-				enemyTankMgr.setMap(map);
-				enemyTankMgr.setBoomMgr(boomMgr);
-				setTankPosition(mapNumber);
+				else loadData();
 			}
-			enemyTankMgr.checkImpact(playerTank);//-------------------------
-			enemyTankMgr.AutoControlAllTank(count, bulletMgr);
-			enemyTankMgr.checkAllEnemyTank(bulletMgr);
-			playerTank.checkImpact(enemyTankMgr);//--------------------------
-			//-----------------------
-			playerTank.control();
-			//-----------------------
-			playerTank.resetImpact();
-			enemyTankMgr.resetImpact();
+			bulletMgr.moveAllBullet();
+			if (enemyTankMgr.getSize() < 5 && enemyTankMgr.getTotalTank() < 10){
+				EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 5);
+				enemyTankMgr.addEnemyTank(enemyTank);
+			}
+			if (count%enemyTankMgr.getEnemyTank(0).getSpeed() == 0){
+				enemyTankMgr.checkImpact(playerTank);
+				enemyTankMgr.AutoControlAllTank(count/enemyTankMgr.getEnemyTank(0).getSpeed(), bulletMgr, playerTank);
+				enemyTankMgr.checkAllEnemyTank(bulletMgr);
+				enemyTankMgr.resetImpact();
+			}
+			if (count%playerTank.getSpeed() == 0){
+				playerTank.checkImpact(enemyTankMgr);
+				playerTank.control();
+				playerTank.resetImpact();
+			}
 			if (playerTank.checkPlayerTank(bulletMgr)){
-				//System.out.println("da bi ban chet");
 				Boom boom = new Boom(playerTank.getX() + 16, playerTank.getY() + 16, CommonsBoom.EXPLOSION_TANK_TYPE);
 				boomMgr.addBoom(boom);
-				Tank.sound.playExplosionTank();//--------------------------------------------------
+				Tank.sound.playExplosionTank();
+				if (playerTank.getHealth()<=0){
+					playing = false;
+					System.out.println("Thua cmnr");
+					playerTank.lockKey();
+				}
 			}
 			count++;
 			repaint();
-			if (count > 10000) count = 0;
+			if (count > 1000000) count = 0;
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

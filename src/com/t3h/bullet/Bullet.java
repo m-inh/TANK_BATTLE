@@ -76,11 +76,11 @@ public class Bullet {
 	}
 	
 	public int getX() {
-		return x;
+		return x+size/2;
 	}
 	
 	public int getY() {
-		return y;
+		return y+size/2;
 	}
 	
 	public int getType() {

@@ -1,5 +1,6 @@
 package com.t3h.tank;
 
+import java.awt.Graphics2D;
 import java.util.Random;
 
 import com.t3h.bullet.Bullet;
@@ -23,43 +24,28 @@ public class EnemyTank extends Tank{
 		leftImg		= CommonsTank.LEFT_ENEMY_TANK;
 		rightImg	= CommonsTank.RIGHT_ENEMY_TANK;
 	}
-	
-	public void auto(int count, BulletManager bulletMgr){
-		autoMove(count);
-		autoFire(bulletMgr);
+	@Override
+	protected void drawHealth(Graphics2D g2d, int x, int y) {
+		if (getHealth() == 2){
+			g2d.drawImage(CommonsTank.HEALTH_FULL, x, y, CommonsTank.SIZE, 4, null);
+		}
+		else if (getHealth() == 1){
+			g2d.drawImage(CommonsTank.HEALTH_LOSE, x, y, CommonsTank.SIZE/2, 4, null);
+		}
 	}
-	
-	private void autoMove(int count){
+		
+	public void autoMove(int count){
 		if (count % 50 == 0){
-			int randomInt = random.nextInt();
-			if (randomInt < 0){
-				randomInt = randomInt*-1;
-			}
-			int newOrient = randomInt % 4 + 1;
+			int newOrient = Math.abs(random.nextInt())%4 + 1;
+			if (!checkMove(newOrient)) newOrient = (newOrient+1)%4 + 1;
+			if (!checkMove(newOrient)) newOrient = (newOrient+1)%4 + 1;
 			setOrient(newOrient);
-//			JOptionPane.showMessageDialog(null, newOrient);
 		}
-		switch (getOrient()) {
-		case 1:
-			move(1);
-			break;
-		case 2:
-			move(2);
-			break;
-		case 3:
-			move(3);
-			break;
-		case 4:
-			move(4);
-			break;
-		default:
-			break;
-		}
-//		move(random.nextInt() % 4 + 1);
+		move(getOrient());
 	}
 	
-	private void autoFire(BulletManager bulletMgr){
-		if (random.nextInt(100) > 98){
+	public void autoFire(BulletManager bulletMgr){
+		if (random.nextInt(100) > 95){
 			Bullet bullet = new Bullet(this.x+13, this.y+13, 2, 1, 1, getOrient());
 			bulletMgr.addBullet(bullet);
 		}
@@ -69,5 +55,29 @@ public class EnemyTank extends Tank{
 		
 	}
 
-
+	public boolean autoCatch(Tank tank){
+		int quarter = CommonsTank.SIZE/4;
+		int oldOrient = getOrient();
+		if (tank.getX()>=x-quarter && tank.getX()<=x+quarter){
+			if (tank.getY()<y && tank.getY()>y-CommonsTank.RADA){
+				setOrient(CommonsTank.UP);
+			}
+			else if (tank.getY()>y && tank.getY()<y+CommonsTank.RADA){
+				setOrient(CommonsTank.DOWN);
+			}
+		}
+		else if (tank.getY()>=y-quarter && tank.getY()<=y+quarter){
+			if (tank.getX()<x && tank.getX()>x-CommonsTank.RADA){
+				setOrient(CommonsTank.LEFT);
+			}
+			else if (tank.getX()>x && tank.getX()<x+CommonsTank.RADA){
+				setOrient(CommonsTank.RIGHT);
+			}
+		}
+		if (oldOrient!=getOrient()){
+			move(getOrient());
+			return true;
+		}
+		return false;
+	}
 }

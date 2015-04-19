@@ -1,17 +1,16 @@
 package com.t3h.boom;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 
 public class Boom {
 	private int x, y;
 	private int type;
 	private CommonsBoom common_boom;
-	private Image tankEx1;
-	private Image tankEx2;
-	private Image tankEx3;
-	private Image tankEx4;
-	private Image tankEx5;
+//	private Image tankEx1;
+//	private Image tankEx2;
+//	private Image tankEx3;
+//	private Image tankEx4;
+//	private Image tankEx5;
 	public int time;
 
 	public Boom(int x, int y, int type) {
