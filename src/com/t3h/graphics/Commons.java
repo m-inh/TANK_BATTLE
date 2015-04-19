@@ -5,9 +5,9 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Commons {
-	public static final int WIDTH_FRAME = 1000;
+	public static final int WIDTH_FRAME = 800;
 	public static final int HEIGHT_FRAME = 740;
-	public static final int WIDTH_PANEL = 1000;
+	public static final int WIDTH_PANEL = 800;
 	public static final int HEIGHT_PANEL = 740;
 	public static final int SIZE_COMPONENT = 25;
 	

@@ -47,11 +47,11 @@ public class BulletManager {
 	// kiem tra dan da bi no chua
 	private boolean checkBullet(Bullet bullet){
 		if (bullet.getX()<0 || bullet.getX()>690){
-			System.out.println("X");
+//			System.out.println("X");
 			return true;
 		}
 		if (bullet.getY()<0 || bullet.getY()>690){
-			System.out.println("Y");
+//			System.out.println("Y");
 			return true;
 		}
 		switch (map.getType(bullet.getX(), bullet.getY())) {
