@@ -17,7 +17,7 @@ public class BoomManager {
 	public void exploredAllBoom(int count, Graphics2D g2d){
 		for (int i = 0; i < boomMgr.size(); i++) {
 			boomMgr.get(i).explored(count, g2d);
-			if (boomMgr.get(i).time == 15){
+			if (boomMgr.get(i).time >= 15){
 				boomMgr.remove(i);
 			}
 		}

@@ -29,6 +29,7 @@ public class PlayPanel extends JPanel implements Runnable{
 	private Map map;
 	private int mapNumber;
 	private int tankPosition[];
+	private TankBase base;
 	private BulletManager bulletMgr;
 	private BoomManager boomMgr;
 	private PlayerTank playerTank;
@@ -53,6 +54,7 @@ public class PlayPanel extends JPanel implements Runnable{
 	public void loadData(){
 		playing = true;
 		setMap(mapNumber);
+		base = new TankBase(325, 625, boomMgr);
 		boomMgr = new BoomManager();
 		bulletMgr = new BulletManager();
 		bulletMgr.setMap(this.map);
@@ -114,6 +116,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		g2d = (Graphics2D)g;
 	
 		map.drawUnderComponent(g2d);
+		base.drawBase(g2d);
 		bulletMgr.drawAllBullet(g2d);
 		enemyTankMgr.drawAllEnemyTank(g2d);
 		playerTank.drawTank(g2d);
@@ -171,6 +174,7 @@ public class PlayPanel extends JPanel implements Runnable{
 				if (mapNumber > 5){
 					JOptionPane.showMessageDialog(null, "Chiến thắngQua hết các cửa!");
 				}
+		
 				else loadData();
 			}
 			if (enemyTankMgr.getSize() < 5 && enemyTankMgr.getTotalTank() < 10){
@@ -192,11 +196,11 @@ public class PlayPanel extends JPanel implements Runnable{
 				Boom boom = new Boom(playerTank.getX() + 16, playerTank.getY() + 16, CommonsBoom.EXPLOSION_TANK_TYPE);
 				boomMgr.addBoom(boom);
 				Tank.sound.playExplosionTank();
-				if (playerTank.getHealth()<=0){
-					playing = false;
-//					System.out.println("Thua");
-					playerTank.lockKey();
-				}
+			}
+			if (playerTank.getHealth()<=0 || base.isDead(bulletMgr)){
+				playing = false;
+//				System.out.println("Thua");
+				playerTank.lockKey();
 			}
 			if (count%Bullet.speed==0)	bulletMgr.moveAllBullet();
 			

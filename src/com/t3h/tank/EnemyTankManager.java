@@ -35,7 +35,7 @@ public class EnemyTankManager {
 	public void AutoControlAllTank(int count, BulletManager bulletMgr, Tank tank){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
 			if (enemyTankMgr.get(i).autoCatch(tank)) {
-				// Tạo một playerTank ảo để đồng đội cạnh đó phát hiện để tới yểm trợ
+				// Táº¡o má»™t playerTank áº£o Ä‘á»ƒ Ä‘á»“ng Ä‘á»™i cáº¡nh Ä‘Ã³ phÃ¡t hiá»‡n Ä‘á»ƒ tá»›i yá»ƒm trá»£
 				Tank vitualPlayerTank = new Tank(enemyTankMgr.get(i).getX(), enemyTankMgr.get(i).getY(), 1, 1) {
 					@Override
 					public void setImage() {
@@ -44,17 +44,17 @@ public class EnemyTankManager {
 					protected void drawHealth(Graphics2D g2d, int x, int y) {
 					}
 				};
-				// Tìm tất cả những đồng đội xung quanh, nếu gần đó và phát hiện ra tank ảo thì tới yểm trợ
+				// TÃ¬m táº¥t cáº£ nhá»¯ng Ä‘á»“ng Ä‘á»™i xung quanh, náº¿u gáº§n Ä‘Ã³ vÃ  phÃ¡t hiá»‡n ra tank áº£o thÃ¬ tá»›i yá»ƒm trá»£
 				for (int j = 0; j < enemyTankMgr.size(); j++) {
 					if (i!=j) {
 						 enemyTankMgr.get(j).autoCatch(vitualPlayerTank);
 					}
 				}
 			}
-			else {		// Nếu không phát hiện xe playerTank
-				 enemyTankMgr.get(i).autoMove(count);		// Tự động di chuyển ngẫu nhiên
+			else {		// Náº¿u khÃ´ng phÃ¡t hiá»‡n xe playerTank
+				 enemyTankMgr.get(i).autoMove(count);		// Tá»± Ä‘á»™ng di chuyá»ƒn ngáº«u nhiÃªn
 			}
-			enemyTankMgr.get(i).autoFire(bulletMgr);	// Tự động bắn
+			enemyTankMgr.get(i).autoFire(bulletMgr);	// Tá»± Ä‘á»™ng báº¯n
 		}
 	}
 	public void drawAllEnemyTank(Graphics2D g2d){
@@ -81,9 +81,9 @@ public class EnemyTankManager {
 					// neu vi tri cua dan == vi tri cua tank -> remove tank + remove bullet + boom
 					Boom boom = new Boom(tankX + CommonsTank.SIZE/2, tankY + CommonsTank.SIZE/2, CommonsBoom.EXPLOSION_TANK_TYPE);
 					boomMgr.addBoom(boom);
-					enemyTankMgr.get(j).setHealth(enemyTankMgr.get(j).getHealth()-1);	// Mất máu
+					enemyTankMgr.get(j).setHealth(enemyTankMgr.get(j).getHealth()-1);	// Máº¥t mÃ¡u
 					if (enemyTankMgr.get(j).getHealth()<=0)	{
-						enemyTankMgr.remove(j);		// Nếu hết máu thì nổ Tank
+						enemyTankMgr.remove(j);		// Náº¿u háº¿t mÃ¡u thÃ¬ ná»• Tank
 						tankDestroy++;
 					}
 					EnemyTank.sound.playExplosionTank();
@@ -97,17 +97,17 @@ public class EnemyTankManager {
 		}
 	}
 	
-	// Kiểm tra va chạm với các Tank
+	// Kiá»ƒm tra va cháº¡m vá»›i cÃ¡c Tank
 	public void checkImpact(Tank tank){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
-			// Va chạm với playerTank
+			// Va cháº¡m vá»›i playerTank
 			enemyTankMgr.get(i).checkUp(tank);
 			enemyTankMgr.get(i).checkDown(tank);
 			enemyTankMgr.get(i).checkLeft(tank);
 			enemyTankMgr.get(i).checkRight(tank);
 			for (int j = 0; j < enemyTankMgr.size(); j++) {
 				if (i!=j){	
-					// Va chạm với từng enemyTank khác
+					// Va cháº¡m vá»›i tá»«ng enemyTank khÃ¡c
 					enemyTankMgr.get(i).checkUp(enemyTankMgr.get(j));
 					enemyTankMgr.get(i).checkDown(enemyTankMgr.get(j));
 					enemyTankMgr.get(i).checkLeft(enemyTankMgr.get(j));
@@ -116,7 +116,7 @@ public class EnemyTankManager {
 			}
 		}
 	}
-	// Khi đã kiểm tra xong thì reset, tất cả các hướng đều có thể đi được
+	// Khi Ä‘Ã£ kiá»ƒm tra xong thÃ¬ reset, táº¥t cáº£ cÃ¡c hÆ°á»›ng Ä‘á»�u cÃ³ thá»ƒ Ä‘i Ä‘Æ°á»£c
 	public void resetImpact(){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
 			enemyTankMgr.get(i).resetImpact();

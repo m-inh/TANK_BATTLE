@@ -23,6 +23,8 @@ public class Commons {
 	public static Image water;
 	public static Image componentDefault;	// DÃ¹ng Ä‘á»ƒ váº½ tphan máº·c Ä‘á»‹nh, sau nÃ y pháº£i xÃ³a Ä‘i
 	
+	public static Image base;
+	public static Image baseDead;
 	
 	public static final int NONE	= 0;
 	public static final int RIM		= 11;
@@ -34,6 +36,8 @@ public class Commons {
 //	public static final int 
 	
 	public Commons() {
+		base		= getImage("/RESOURCE/Image/base.png");
+		baseDead	= getImage("/RESOURCE/Image/base_dead.png");
 		brick1		= getImage("/RESOURCE/Image/brick1.png");
 		brick2		= getImage("/RESOURCE/Image/brick2.png");
 		stone		= getImage("/RESOURCE/Image/stone.png");
