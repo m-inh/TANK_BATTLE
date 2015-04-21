@@ -49,7 +49,6 @@ public class TankBase {
 				return true;
 			}
 		}
-//		alive = true;
 		return false;
 	}
 	

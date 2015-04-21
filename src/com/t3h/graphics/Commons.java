@@ -5,35 +5,32 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Commons {
-	public static final int WIDTH_FRAME = 800;
-	public static final int HEIGHT_FRAME = 740;
-	public static final int WIDTH_PANEL = 800;
-	public static final int HEIGHT_PANEL = 740;
-	public static final int SIZE_COMPONENT = 25;
+	public static final int WIDTH_FRAME 	= 800;
+	public static final int HEIGHT_FRAME 	= 740;
+	public static final int WIDTH_PANEL 	= 800;
+	public static final int HEIGHT_PANEL 	= 740;
+		
+	public static final int sizeMap = 28;			// kich thuoc cua matrix[][]
 	
-	// kich thuoc cua matrix[][]
-	public static final int sizeMap = 28;
+	public static Image rim;	// Tuong
+	public static Image brick1;	// Gach
+	public static Image brick2;	// Gach bi ban
+	public static Image stone;	// Da
+	public static Image tree;	// Cay
+	public static Image water;	// Nuoc
 	
+	public static Image base;		// Nha chu
+	public static Image baseDead;	// Nha chu bi chet
 	
-	public static Image rim;
-	public static Image brick1;	// Gáº¡ch
-	public static Image brick2;	// Gáº¡ch bá»‹ báº¯n
-	public static Image stone;	// Ä�Ã¡
-	public static Image tree;
-	public static Image water;
-	public static Image componentDefault;	// DÃ¹ng Ä‘á»ƒ váº½ tphan máº·c Ä‘á»‹nh, sau nÃ y pháº£i xÃ³a Ä‘i
+	public static final int SIZE_COMPONENT 	= 25;	// Kich thuoc tung vien gach, tuong, cay,...
 	
-	public static Image base;
-	public static Image baseDead;
-	
-	public static final int NONE	= 0;
-	public static final int RIM		= 11;
+	public static final int NONE	= 0;		// Ma tung thanh phan trong Map
+	public static final int RIM		= 11;		// duoc luu trong file Map
 	public static final int BRICK1	= 1;
 	public static final int BRICK2	= 10;
 	public static final int STONE	= 2;
 	public static final int TREE	= 5;
 	public static final int WATER	= 3;
-//	public static final int 
 	
 	public Commons() {
 		base		= getImage("/RESOURCE/Image/base.png");
@@ -44,7 +41,6 @@ public class Commons {
 		tree		= getImage("/RESOURCE/Image/tree.png");
 		water		= getImage("/RESOURCE/Image/water.png");
 		rim			= getImage("/RESOURCE/Image/rim.png");
-		componentDefault = getImage("/RESOURCE/Image/bullet.png");
 	}
 	
 	public Image getImage(String path){

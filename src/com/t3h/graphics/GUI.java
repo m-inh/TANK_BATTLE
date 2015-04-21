@@ -16,7 +16,6 @@ public class GUI extends JFrame{
 		playPanel = new PlayPanel();
 		playPanel.setBounds(0, 0, Commons.WIDTH_FRAME, Commons.HEIGHT_FRAME);
 		add(playPanel);
-		playPanel.setGUI(this);
 		
 //		menuPanel = new MenuPanel();
 //		menuPanel.setBounds(0, 0, WIDTH_FRAME, HEIGHT_FRAME);

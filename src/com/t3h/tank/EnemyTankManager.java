@@ -22,10 +22,6 @@ public class EnemyTankManager {
 		totalTank = 0;
 	}
 	
-	public void setMap(Map map){
-		this.map = map;
-	}
-	
 	public void addEnemyTank(EnemyTank eTank){
 		eTank.setMap(this.map);
 		enemyTankMgr.add(eTank);
@@ -35,7 +31,7 @@ public class EnemyTankManager {
 	public void AutoControlAllTank(int count, BulletManager bulletMgr, Tank tank){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
 			if (enemyTankMgr.get(i).autoCatch(tank)) {
-				// Táº¡o má»™t playerTank áº£o Ä‘á»ƒ Ä‘á»“ng Ä‘á»™i cáº¡nh Ä‘Ã³ phÃ¡t hiá»‡n Ä‘á»ƒ tá»›i yá»ƒm trá»£
+				// Khi phat hien playerTank, thi tao 1 tank ao de dong doi phat hien ra va di den yem tro
 				Tank vitualPlayerTank = new Tank(enemyTankMgr.get(i).getX(), enemyTankMgr.get(i).getY(), 1, 1) {
 					@Override
 					public void setImage() {
@@ -44,17 +40,18 @@ public class EnemyTankManager {
 					protected void drawHealth(Graphics2D g2d, int x, int y) {
 					}
 				};
-				// TÃ¬m táº¥t cáº£ nhá»¯ng Ä‘á»“ng Ä‘á»™i xung quanh, náº¿u gáº§n Ä‘Ã³ vÃ  phÃ¡t hiá»‡n ra tank áº£o thÃ¬ tá»›i yá»ƒm trá»£
+				// Neu xe tang xung quanh phat hien ra vitualPlayerTank thi se chay den yem tro
 				for (int j = 0; j < enemyTankMgr.size(); j++) {
 					if (i!=j) {
 						 enemyTankMgr.get(j).autoCatch(vitualPlayerTank);
 					}
 				}
+				enemyTankMgr.get(i).autoFire(bulletMgr);	// Tu dong ban
 			}
-			else {		// Náº¿u khÃ´ng phÃ¡t hiá»‡n xe playerTank
-				 enemyTankMgr.get(i).autoMove(count);		// Tá»± Ä‘á»™ng di chuyá»ƒn ngáº«u nhiÃªn
+			else {		// Neu khong phat hien playerTank
+				 enemyTankMgr.get(i).autoMove(count);		// Tank di chuyen ngau nhien
 			}
-			enemyTankMgr.get(i).autoFire(bulletMgr);	// Tá»± Ä‘á»™ng báº¯n
+			enemyTankMgr.get(i).autoFire(bulletMgr);		// Tu dong ban
 		}
 	}
 	public void drawAllEnemyTank(Graphics2D g2d){
@@ -63,6 +60,7 @@ public class EnemyTankManager {
 		}
 	}
 	
+	// Kiem tra Tank va cham voi dan
 	public void checkAllEnemyTank(BulletManager bulletMgr){
 		int bulletX = 0;
 		int bulletY = 0;
@@ -81,9 +79,9 @@ public class EnemyTankManager {
 					// neu vi tri cua dan == vi tri cua tank -> remove tank + remove bullet + boom
 					Boom boom = new Boom(tankX + CommonsTank.SIZE/2, tankY + CommonsTank.SIZE/2, CommonsBoom.EXPLOSION_TANK_TYPE);
 					boomMgr.addBoom(boom);
-					enemyTankMgr.get(j).setHealth(enemyTankMgr.get(j).getHealth()-1);	// Máº¥t mÃ¡u
+					enemyTankMgr.get(j).setHealth(enemyTankMgr.get(j).getHealth()-1);	// Mat mau
 					if (enemyTankMgr.get(j).getHealth()<=0)	{
-						enemyTankMgr.remove(j);		// Náº¿u háº¿t mÃ¡u thÃ¬ ná»• Tank
+						enemyTankMgr.remove(j);		// Neu het mau thi no tank
 						tankDestroy++;
 					}
 					EnemyTank.sound.playExplosionTank();
@@ -97,17 +95,17 @@ public class EnemyTankManager {
 		}
 	}
 	
-	// Kiá»ƒm tra va cháº¡m vá»›i cÃ¡c Tank
+	// Kiem tra va cham Tank
 	public void checkImpact(Tank tank){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
-			// Va cháº¡m vá»›i playerTank
+			// Va cham voi playerTank
 			enemyTankMgr.get(i).checkUp(tank);
 			enemyTankMgr.get(i).checkDown(tank);
 			enemyTankMgr.get(i).checkLeft(tank);
 			enemyTankMgr.get(i).checkRight(tank);
 			for (int j = 0; j < enemyTankMgr.size(); j++) {
 				if (i!=j){	
-					// Va cháº¡m vá»›i tá»«ng enemyTank khÃ¡c
+					// Va cham voi enemyTank khac
 					enemyTankMgr.get(i).checkUp(enemyTankMgr.get(j));
 					enemyTankMgr.get(i).checkDown(enemyTankMgr.get(j));
 					enemyTankMgr.get(i).checkLeft(enemyTankMgr.get(j));
@@ -116,15 +114,21 @@ public class EnemyTankManager {
 			}
 		}
 	}
-	// Khi Ä‘Ã£ kiá»ƒm tra xong thÃ¬ reset, táº¥t cáº£ cÃ¡c hÆ°á»›ng Ä‘á»�u cÃ³ thá»ƒ Ä‘i Ä‘Æ°á»£c
+	// Khi da kiem tra xong thi reset, tat ca cac huong deu co the di toi duoc
 	public void resetImpact(){
 		for (int i = 0; i < enemyTankMgr.size(); i++) {
 			enemyTankMgr.get(i).resetImpact();
 		}
 	}
+	
 	public EnemyTank getEnemyTank(int index){
 		return enemyTankMgr.get(index);
 	}
+	
+	public void setMap(Map map){
+		this.map = map;
+	}
+	
 	
 	public void setBoomMgr(BoomManager boomMgr) {
 		this.boomMgr = boomMgr;

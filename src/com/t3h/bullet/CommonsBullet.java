@@ -7,15 +7,15 @@ import javax.swing.ImageIcon;
 public class CommonsBullet {
 	public static Image BULLET;
 	
-	public static final int SIZE_BULLET = 8;
+	public static final int SIZE_BULLET 	= 8;
 	
-	public static final int UP_ORIENT = 1;
-	public static final int DOWN_ORIENT = 2;
-	public static final int LEFT_ORIENT = 3;
-	public static final int RIGHT_ORIENT = 4;
+	public static final int UP_ORIENT 		= 1;
+	public static final int DOWN_ORIENT 	= 2;
+	public static final int LEFT_ORIENT 	= 3;
+	public static final int RIGHT_ORIENT 	= 4;
 	
-	public static final int BULLET_TYPE_PLAYER = 1;
-	public static final int BULLET_TYPE_ENEMY = 2;
+	public static final int BULLET_TYPE_PLAYER	= 1;
+	public static final int BULLET_TYPE_ENEMY	= 2;
 	
 	public static final int BULLET_SPEED = 3;
 	

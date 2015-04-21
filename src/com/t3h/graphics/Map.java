@@ -8,13 +8,14 @@ import java.io.RandomAccessFile;
 
 import javax.swing.JOptionPane;
 
-public class Map {	
+public class Map {
+	public Commons common = new Commons();
+	
 	private File file;
 	private RandomAccessFile rdf;
 	
-	private int matrix[][];
+	private int matrix[][];		// Luu trang thai cua ban do
 	
-	Commons common = new Commons();
 	public Map(int type) {		
 		createMatrix();
 		String tempFilePath = getClass().getResource("/RESOURCE/Map").toString();
@@ -25,7 +26,8 @@ public class Map {
 		closeFile();
 	}
 	
-	public void drawUnderComponent(Graphics2D g2d){// Ve truong hop co nuoc
+	// Ve nhung thanh phan o phia duoi ma bullet duoc ve de len tren no
+	public void drawUnderComponent(Graphics2D g2d){
 		int type;
 		for (int i=0; i<Commons.sizeMap; i++){
 			for (int j=0; j<Commons.sizeMap; j++){
@@ -58,6 +60,8 @@ public class Map {
 			}
 		}
 	}
+	
+	// Ve nhung thanh phan duoc ve de len tren bullet
 	public void drawComponent(Graphics2D g2d){
 		int type;
 		for (int i=1; i<Commons.sizeMap-1; i++){
@@ -79,7 +83,7 @@ public class Map {
 		}
 	}
 	
-	//-----------------------------FILE
+	//-----------------------------FILE---------------------
 	private void openFile(){
 		try {
 			if (file.exists()){
@@ -134,7 +138,7 @@ public class Map {
 			matrix[0][i]	= matrix[i][0]
 							= matrix[Commons.sizeMap - 1][i]
 							= matrix[i][Commons.sizeMap - 1]
-							= Commons.RIM;
+							= Commons.RIM;	// Vien bao cua Map
 		}
 	}
 	

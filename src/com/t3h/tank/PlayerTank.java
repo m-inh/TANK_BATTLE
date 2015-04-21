@@ -11,12 +11,12 @@ import com.t3h.bullet.BulletManager;
 
 public class PlayerTank extends Tank{
 	
-	private boolean upPressed 		= false;	//	Các biến boolean này dùng để kiểm tra xem
-	private boolean downPressed 	= false;	// các nút di chuyển có được nhấn hay không
-	private boolean leftPressed 	= false;	// nếu true thì nó sẽ di chuyển liên tục theo hướng đó
-	private boolean rightPressed 	= false;	// nếu false thì dừng lại
+	private boolean upPressed 		= false;	//	Cac bien boolean nay dung de kiem tra xem
+	private boolean downPressed 	= false;	// cac nut di chuyen co duoc nhan hay khong
+	private boolean leftPressed 	= false;	// true: no se di chuyen lien tuc theo huong do
+	private boolean rightPressed 	= false;	// false: no se dung lai
 	
-	private boolean lockKey;
+	private boolean lockKey;	// Vo hieu hoa keyEvent
 
 	public PlayerTank(int x, int y, int orient, int speed) {
 		super(x, y, orient, speed);
@@ -27,7 +27,7 @@ public class PlayerTank extends Tank{
 
 	@Override	// Lấy ảnh Tank
 	public void setImage() {
-		UpImg 		= CommonsTank.UP_PLAYER_TANK;
+		upImg 		= CommonsTank.UP_PLAYER_TANK;
 		downImg		= CommonsTank.DOWN_PLAYER_TANK;
 		leftImg		= CommonsTank.LEFT_PLAYER_TANK;
 		rightImg	= CommonsTank.RIGHT_PLAYER_TANK;
@@ -35,7 +35,7 @@ public class PlayerTank extends Tank{
 	@Override
 	protected void drawHealth(Graphics2D g2d, int x, int y) {
 		Image health;
-		if (getHealth() <= 0) return;
+		if (getHealth() <= 0) return;		// Het mau: Khong ve mau
 		if (CommonsTank.HEALTH_PLAYER_TANK/getHealth() >= 2){
 			health = CommonsTank.HEALTH_LOSE;
 		}
@@ -43,7 +43,7 @@ public class PlayerTank extends Tank{
 		g2d.drawImage(health, x, y, CommonsTank.SIZE*getHealth()/CommonsTank.HEALTH_PLAYER_TANK, 4, null);
 	}
 	
-	// Kiểm tra xem có trúng đạn hay không
+	// Kiem tra xem co trung dan hay khong
 	public boolean checkPlayerTank(BulletManager bulletMgr){
 		int bulletEnemyX = 0;
 		int bulletEnemyY = 0;
@@ -64,35 +64,35 @@ public class PlayerTank extends Tank{
 		return false;
 	}
 	
-	// Kiểm tra va chạm với các xe tăng địch
+	// Kiem tra va cham voi cac xe tang dich
 	public void checkImpact(EnemyTankManager enemyTankMgr){
 		for (int i = 0; i < enemyTankMgr.getSize(); i++) {
-			this.checkUp(enemyTankMgr.getEnemyTank(i));
-			this.checkDown(enemyTankMgr.getEnemyTank(i));
-			this.checkLeft(enemyTankMgr.getEnemyTank(i));
-			this.checkRight(enemyTankMgr.getEnemyTank(i));
+			checkUp(enemyTankMgr.getEnemyTank(i));
+			checkDown(enemyTankMgr.getEnemyTank(i));
+			checkLeft(enemyTankMgr.getEnemyTank(i));
+			checkRight(enemyTankMgr.getEnemyTank(i));
 		}
 	}
 	
-	// Khi nhấn nút thì Tank sẽ di chuyển liên tục theo nút đã nhấn
+	// Khi nhan nut thi Tank se di chuyen lien tuc theo huong da nhan
 	public void pressKey(KeyEvent e){
 		switch(e.getKeyCode()){
-		case KeyEvent.VK_RIGHT:{
-			rightPressed = true;		break;
-		}
-		case KeyEvent.VK_LEFT:{
-			leftPressed = true;			break;
-		}
-		case KeyEvent.VK_UP:{
-			upPressed = true;			break;
-		}
-		case KeyEvent.VK_DOWN:{
-			downPressed = true;			break;
-		}
+			case KeyEvent.VK_RIGHT:{
+				rightPressed = true;		break;
+			}
+			case KeyEvent.VK_LEFT:{
+				leftPressed = true;			break;
+			}
+			case KeyEvent.VK_UP:{
+				upPressed = true;			break;
+			}
+			case KeyEvent.VK_DOWN:{
+				downPressed = true;			break;
+			}
 		}
 	}
 	
-	// Khi nhả nút thì dừng nhận lệnh di chuyển
+	// Khi nha nut ra thi dung di chuyen
 	public void releaseKey(KeyEvent e){
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_RIGHT:{
@@ -110,7 +110,7 @@ public class PlayerTank extends Tank{
 		}
 	}
 		
-	// Cho Tank chạy
+	// Cho Tank chay theo huong ma upPressed, downPressed, leftPressed, rightPressed cho phep
 	public void control(){
 		if (lockKey) return;
 		if (upPressed){
@@ -127,14 +127,15 @@ public class PlayerTank extends Tank{
 		}
 	}
 	
+	// Khoa KeyEvent
 	public void lockKey(){
 		lockKey = true;
 	}
+	// Mo khoa KeyEvent
 	public void unlockKey(){
 		lockKey = false;
 	}
 	public void setBoomMgr(BoomManager boomMgr) {
 		this.boomMgr = boomMgr;
 	}
-}
-      
+} 

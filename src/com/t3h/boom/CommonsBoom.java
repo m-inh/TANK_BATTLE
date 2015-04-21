@@ -13,8 +13,8 @@ public class CommonsBoom {
 	public static Image TANK_EXPLOSION_4;
 	public static Image TANK_EXPLOSION_5;
 	
-	public static final int EXPLOSION_BULLET_TYPE = 1;
-	public static final int EXPLOSION_TANK_TYPE = 2;
+	public static final int EXPLOSION_BULLET_TYPE 	= 1;
+	public static final int EXPLOSION_TANK_TYPE 	= 2;
 	
 	public CommonsBoom() {
 		BULLET_EXPLOSION = getImage("/RESOURCE/Image/explosion.png");
