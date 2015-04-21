@@ -24,7 +24,8 @@ public class CommonsTank {
 	
 	public static final int SIZE = 35;
 	
-	public static final int RADA = 5*Commons.SIZE_COMPONENT;
+	public static final int RADA = 10*Commons.SIZE_COMPONENT;
+	public static final int SUPER_RADA = 15*Commons.SIZE_COMPONENT;
 	
 	public static Image HEALTH_FULL;	// Máu của Tank
 	public static Image HEALTH_LOSE;

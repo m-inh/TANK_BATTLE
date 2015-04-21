@@ -3,9 +3,7 @@ package com.t3h.graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import com.t3h.boom.Boom;
 import com.t3h.boom.BoomManager;
-import com.t3h.boom.CommonsBoom;
 import com.t3h.bullet.BulletManager;
 
 public class TankBase {
@@ -30,9 +28,9 @@ public class TankBase {
 	
 	public void drawBase(Graphics2D g2d){
 		if (alive){
-			g2d.drawImage(base, x, y, (commons.sizeMap-4)*2, (commons.sizeMap-4)*2, null);
+			g2d.drawImage(base, x, y, (Commons.sizeMap-4)*2, (Commons.sizeMap-4)*2, null);
 		} else{
-			g2d.drawImage(baseDead, x, y, (commons.sizeMap-4)*2, (commons.sizeMap-4)*2, null);
+			g2d.drawImage(baseDead, x, y, (Commons.sizeMap-4)*2, (Commons.sizeMap-4)*2, null);
 		}
 	}
 	
@@ -43,7 +41,7 @@ public class TankBase {
 			if (i>=bulletMgr.getSize()) continue;
 			bulletX = bulletMgr.getBullet(i).getX();
 			bulletY = bulletMgr.getBullet(i).getY();
-			if (bulletX >= this.x && bulletX <= this.x+commons.sizeMap*2 && bulletY >= this.y && bulletY <= this.y+commons.sizeMap*2){
+			if (bulletX >= this.x && bulletX <= this.x+Commons.sizeMap*2 && bulletY >= this.y && bulletY <= this.y+Commons.sizeMap*2){
 //				Boom boom = new Boom(bulletX, bulletY, CommonsBoom.EXPLOSION_TANK_TYPE);
 //				boomMgr.addBoom(boom);
 				sound.playExplosionTank();
@@ -56,7 +54,7 @@ public class TankBase {
 	}
 	
 	private void setImage(){
-		base = commons.base;
-		baseDead = commons.baseDead;
+		base = Commons.base;
+		baseDead = Commons.baseDead;
 	}
 }
