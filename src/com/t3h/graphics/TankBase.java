@@ -56,4 +56,8 @@ public class TankBase {
 		base = Commons.base;
 		baseDead = Commons.baseDead;
 	}
+
+	public BoomManager getBoomMgr() {
+		return boomMgr;
+	}
 }

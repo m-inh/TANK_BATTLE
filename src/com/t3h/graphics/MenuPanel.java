@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class MenuPanel extends JPanel{
+	private static final long serialVersionUID = 1L;
+	
 	private JButton btnPlay;
 	private GUI gui;
 	

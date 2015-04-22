@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 public class Bullet {
-	private CommonsBullet commons;
+	public CommonsBullet commons;
 	private int x, y;
 	private Image img;
 	private int type;
@@ -72,7 +72,7 @@ public class Bullet {
 	}
 	
 	public void setSpeed(int speed) {
-		this.speed = speed;
+//		this.speed = speed;
 	}
 	
 	public int getSpeed(){

@@ -3,6 +3,8 @@ package com.t3h.graphics;
 import javax.swing.JFrame;
 
 public class GUI extends JFrame{	
+	private static final long serialVersionUID = 1L;
+	
 	private PlayPanel playPanel;
 	private MenuPanel menuPanel;
 	

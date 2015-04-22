@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 public class Boom {
 	private int x, y;
 	private int type;
-	private CommonsBoom common_boom = new CommonsBoom();
+	public CommonsBoom common_boom = new CommonsBoom();
 	public int time;
 
 	public Boom(int x, int y, int type) {

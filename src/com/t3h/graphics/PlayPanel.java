@@ -24,6 +24,8 @@ import com.t3h.tank.PlayerTank;
 import com.t3h.tank.Tank;
 
 public class PlayPanel extends JPanel implements Runnable{
+	private static final long serialVersionUID = 1L;
+
 	private Graphics2D g2d;
 	
 	private Map map;
@@ -50,7 +52,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		setFocusable(true);
 		addMouseListener(click);
 		
-		mapNumber = 1;
+		mapNumber = 5;
 		loadData();
 		
 		th = new Thread(this);
@@ -127,13 +129,16 @@ public class PlayPanel extends JPanel implements Runnable{
 			
 			addNewEnemyTank();
 			
-			if (count%enemyTankMgr.getEnemyTank(0).getSpeed() == 0)	processEnemyTank();
+			if (enemyTankMgr.getSize()>0 && count%enemyTankMgr.getEnemyTank(0).getSpeed() == 0)
+				processEnemyTank();
 			
-			if (count%playerTank.getSpeed() == 0)	processPlayerTank();
+			if (count%playerTank.getSpeed() == 0)
+				processPlayerTank();
 			
 			checkDie();
 			
-			if (count%Bullet.speed==0)	bulletMgr.moveAllBullet();
+			if (count%Bullet.speed==0)
+				bulletMgr.moveAllBullet();
 			
 			count++;
 			if (count > 1000000) count = 0;
@@ -168,7 +173,7 @@ public class PlayPanel extends JPanel implements Runnable{
 	
 	private void addNewEnemyTank(){
 		if (enemyTankMgr.getSize() < 5 && enemyTankMgr.getTotalTank() < 10){
-			EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 50-mapNumber*5);
+			EnemyTank enemyTank = new EnemyTank(tankPosition[new Random().nextInt(4)], 30, 1, 50-mapNumber*7);
 			enemyTankMgr.addEnemyTank(enemyTank);
 		}
 	}
@@ -201,7 +206,7 @@ public class PlayPanel extends JPanel implements Runnable{
 				JOptionPane.showMessageDialog(null, "Chiến thắng!!!Qua hết các cửa!\nQuay lại cửa 1");
 				mapNumber = 1;
 			}
-			else loadData();
+			loadData();
 		}
 	}
 	
