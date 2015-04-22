@@ -52,7 +52,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		setFocusable(true);
 		addMouseListener(click);
 		
-		mapNumber = 5;
+		mapNumber = 1;
 		loadData();
 		
 		th = new Thread(this);
