@@ -52,7 +52,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		setFocusable(true);
 		addMouseListener(click);
 		
-		mapNumber = 1;
+		mapNumber = 9;
 		loadData();
 		
 		th = new Thread(this);
@@ -134,9 +134,13 @@ public class PlayPanel extends JPanel implements Runnable{
 			
 			if (count%playerTank.getSpeed() == 0)
 				processPlayerTank();
-			
-			checkDie();
-			
+
+			try {
+				checkDie();
+			} catch (Exception e){
+				System.out.println("Exception");
+			}
+
 			if (count%Bullet.speed==0)
 				bulletMgr.moveAllBullet();
 			
@@ -202,7 +206,7 @@ public class PlayPanel extends JPanel implements Runnable{
 		if (enemyTankMgr.getTankDestroy() >= 10){
 			JOptionPane.showMessageDialog(null, "Win!");
 			mapNumber++;
-			if (mapNumber > 5){
+			if (mapNumber > 10){
 				JOptionPane.showMessageDialog(null, "Chiến thắng!!!Qua hết các cửa!\nQuay lại cửa 1");
 				mapNumber = 1;
 			}
