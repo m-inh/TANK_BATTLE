@@ -18,8 +18,9 @@ public class Map {
 	
 	public Map(int type) {		
 		createMatrix();
-		String tempFilePath = getClass().getResource("/RESOURCE/Map").toString();
-		String pathMap = tempFilePath.substring(6) + "/map" + type;
+		String tempFilePath = getClass().getResource("/RESOURCE/Map").getPath();
+		String pathMap = tempFilePath + "/map" + type;
+		System.out.println(pathMap);
 		file = new File(pathMap);
 		openFile();
 		readFile();
